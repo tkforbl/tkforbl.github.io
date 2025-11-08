@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개인정보처리방침 - App Volume Control | TK4BL</title>
+    <title>Privacy Policy - TK4BL</title>
     <style>
         * {
             margin: 0;
@@ -22,37 +22,94 @@
         }
 
         .container {
+            position: relative; /* 언어 선택기 위치의 기준 */
             background-color: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        h1 {
-            color: #2c3e50;
-            font-size: 2.2em;
-            margin-bottom: 5px;
-            text-align: center;
-            border-bottom: none;
-            padding-bottom: 0;
+        /* --- START: 언어 선택기 스타일 --- */
+        .lang-selector-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 10;
         }
 
-        .app-title {
-            color: #3498db;
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            text-align: center;
-            font-weight: 500;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-
-        .update-date {
-            text-align: center;
-            color: #7f8c8d;
+        #lang-selector {
+            padding: 8px 10px;
             font-size: 0.9em;
-            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
         }
+        /* --- END: 언어 선택기 스타일 --- */
+
+/* --- 1. 기본 스타일 (모바일 / 좁은 화면) --- */
+
+/*
+
+ * 좁은 화면에서는 Flexbox를 사용해 겹침을 방지합니다.
+
+ * 날짜가 우선순위를 갖고, 제목은 남은 공간을 차지합니다.
+
+ */
+
+/* --- 1. 헤더 레이아웃 (모든 화면 공통) --- */
+
+/* 1. 부모 (위치 기준점) */
+.header-meta {
+    position: relative; /* 자식 요소들의 'absolute' 기준점이 됨 */
+    height: 1.5em; /* 텍스트 한 줄이 들어갈 높이 */
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 2.2em;
+    margin-bottom: 5px;
+    text-align: center;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+/* 2. 부제목 (TK4BL) - 비례 이동 */
+.app-title {
+    /* (기존) 폰트, 색상 등은 그대로 둠 */
+    color: #3498db;
+    font-size: 1.4em;
+    font-weight: 500;
+    margin-bottom: 0;
+
+    /* --- [핵심] --- */
+    position: absolute;
+    left: 50%; /* 1. 일단 화면 중앙에 위치 */
+
+    /* 2. 비례 이동 계산 */
+    /* 580px보다 넓으면 0, 좁아지면 좁아진 만큼 왼쪽으로 밀어냄 */
+    /* (580px - 100vw) * 0.5
+       -> 580px보다 100px 좁아지면(480vw), (100px * 0.5) = 50px 왼쪽으로 민다
+    */
+    --push-amount: max(0px, (580px - 100vw) * 0.5);
+    transform: translateX( calc( -50% - var(--push-amount) ) );
+}
+
+.update-date {
+
+    /* (기존) 폰트, 색상 등은 그대로 둠 */
+
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-bottom: 0;
+
+    /* [수정] 우측에 절대 위치로 고정 */
+    position: absolute;
+    right: 0;
+    top: 0;
+
+}
+
 
         .section {
             margin-bottom: 30px;
@@ -67,6 +124,15 @@
             font-size: 1.4em;
             margin-bottom: 15px;
             font-weight: bold;
+        }
+
+        .section h3 {
+             /* 영문판 h3 태그를 위해 스타일 추가 */
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: #2c3e50;
         }
 
         .section p {
@@ -117,13 +183,25 @@
                 padding: 20px;
             }
 
+             /* --- START: 모바일 언어 선택기 --- */
+            .lang-selector-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+            #lang-selector {
+                padding: 5px;
+                font-size: 0.8em;
+            }
+             /* --- END: 모바일 언어 선택기 --- */
+
             h1 {
                 font-size: 1.8em;
             }
 
             .app-title {
                 font-size: 1.2em;
-                margin-bottom: 12px;
+                /* [수정] 불필요한 margin-bottom 삭제 */
             }
 
             .section {
@@ -146,127 +224,323 @@
                 box-shadow: none;
                 padding: 20px;
             }
+            /* 인쇄 시 언어 선택기 숨기기 */
+            .lang-selector-container {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>개인정보처리방침</h1>
-        <h2 class="app-title">안드로이드 앱 - App Volume Control | TK4BL</h2>
-        <p class="update-date">최종 업데이트: 2025. 10. 7.(화)</p>
 
-        <div class="section">
-            <h2>1. 개인정보 수집 및 이용 목적</h2>
-            <p>AVC 앱은 다음과 같은 목적으로 개인정보를 수집하고 이용합니다:</p>
-            <ul>
-                <li>앱 기능 제공: 앱별 볼륨 제어 기능을 위한 설정 정보</li>
-                <li>오류 개선: 앱 안정성 향상을 위한 오류 보고 정보</li>
-                <li>서비스 개선: 사용자 의견을 통한 서비스 개선</li>
-            </ul>
+        <div class="lang-selector-container">
+            <select id="lang-selector" aria-label="Language Selector">
+                <option value="en" selected>English</option>
+                <option value="ko">Korean - 한국어</option>
+            </select>
         </div>
+        <div id="lang-en" style="display: block;">
+            <h1>Privacy Policy</h1>
 
-        <div class="section">
-            <h2>2. 수집하는 개인정보 항목</h2>
-            <ul>
-                <li>개인식별정보, 개인민감정보: 미수집</li>
-                <li>앱 설정 정보 (총 13개 항목):
-                    <ul>
-                        <li>볼륨 UI 표시 타입, 좌표(X,Y), 크기 설정</li>
-                        <li>수동 볼륨 변경 시 표시 여부</li>
-                        <li>앱 감지 시 이름 표시 여부</li>
-                        <li>가로 모드 좌표 및 별도 설정 사용 여부</li>
-                        <li>폰트 크기 및 오버레이 표시 시간</li>
-                        <li>볼륨 표시 모드 설정</li>
-                        <li>디바운싱 활성화 및 지연 시간 설정</li>
-                    </ul>
-                </li>
-                <li>오류 로그: 앱 실행 중 발생하는 오류 및 예외 정보</li>
-                <li>기기 정보: 앱 버전, 기기 모델, Android 버전 등</li>
-                <li>사용자 의견: 오류 보고 시 입력하는 추가 설명 내용</li>
-            </ul>
-        </div>
+            <div class="header-meta">
+                <h2 class="app-title">TK4BL</h2>
+                <p class="update-date">Last Updated: November 8, 2025</p>
+            </div>
 
-        <div class="section">
-            <h2>3. 개인정보 수집 방법</h2>
-            <ul>
-                <li>자동 수집: 앱 사용 중 자동으로 수집되는 정보</li>
-                <li>수동 입력: 사용자가 직접 입력하는 설정 및 의견</li>
-                <li>권한 기반: 사용자 동의 하에 수집되는 정보</li>
-            </ul>
-        </div>
+            <div class="section">
+                <h2>1. Purpose of Collection and Use of Personal Information</h2>
+                <p>TK4BL collects and uses personal information for the following purposes:</p>
 
-        <div class="section">
-            <h2>4. 개인정보 보유 및 이용 기간</h2>
-            <ul>
-                <li>앱 설정 정보: 앱 삭제 시까지</li>
-                <li>오류 로그: 오류 해결 완료 후 30일 이내 삭제</li>
-                <li>사용자 의견: 의견 처리 완료 후 1년 이내 삭제</li>
-                <li>기기 정보: 앱 삭제 시까지</li>
-            </ul>
-        </div>
+                <h3>AVC (App Volume Controller)</h3>
+                <ul>
+                    <li>Providing App Features: Storing and applying settings for per-app volume control.</li>
+                    <li>Error Resolution: Collecting error reports and diagnostic information to improve app stability.</li>
+                    <li>Service Improvement: Enhancing service quality through user feedback.</li>
+                </ul>
+                </div>
 
-        <div class="section">
-            <h2>5. 개인정보 제3자 제공</h2>
-            <p>AVC 앱은 다음과 같은 경우에만 개인정보를 제3자에게 제공합니다:</p>
-            <ul>
-                <li>사용자 동의가 있는 경우</li>
-                <li>법령에 의해 요구되는 경우</li>
-                <li>오류 분석을 위해 Firebase Crashlytics에 익명화된 정보 제공</li>
-            </ul>
-        </div>
+            <div class="section">
+                <h2>2. Items of Personal Information Collected</h2>
+                <h3>Common</h3>
+                <ul>
+                    <li>Personally Identifiable Information, Sensitive Personal Information: Not collected</li>
+                </ul>
 
-        <div class="section">
-            <h2>6. 개인정보 보호 조치</h2>
-            <ul>
-                <li>암호화: 중요 정보는 암호화하여 저장</li>
-                <li>접근 제한: 개인정보에 대한 접근 권한 제한</li>
-                <li>안전한 전송: HTTPS를 통한 안전한 데이터 전송</li>
-                <li>정기 점검: 개인정보 보호 상태 정기 점검</li>
-            </ul>
-        </div>
+                <h3>AVC (App Volume Controller)</h3>
+                <ul>
+                    <li>App Settings
+                        <ul>
+                            <li>Volume UI display type, coordinates (X,Y), and size settings</li>
+                            <li>Whether to display on manual volume change</li>
+                            <li>Whether to display app name on detection</li>
+                            <li>Landscape mode coordinates and separate setting usage</li>
+                            <li>Font size and overlay display time</li>
+                            <li>Volume display mode settings</li>
+                            <li>Debouncing activation and delay time settings</li>
+                        </ul>
+                    </li>
+                    <li>Error Logs: Information on errors and exceptions occurring during app execution.</li>
+                    <li>Device Information: App version, device model, Android version, etc.</li>
+                    <li>User Feedback: Additional explanatory content entered by the user when reporting an error.</li>
+                </ul>
+                </div>
 
-        <div class="section">
-            <h2>7. 사용자 권리</h2>
-            <p>사용자는 다음과 같은 권리를 가집니다:</p>
-            <ul>
-                <li>개인정보 열람 요구</li>
-                <li>개인정보 정정·삭제 요구</li>
-                <li>개인정보 처리정지 요구</li>
-                <li>개인정보 이전 요구</li>
-            </ul>
-        </div>
+            <div class="section">
+                <h2>3. Method of Collection</h2>
+                <ul>
+                    <li>Automatic Collection: Information collected automatically during app usage.</li>
+                    <li>Manual Input: Settings and feedback directly entered by the user.</li>
+                    <li>Permission-Based: Information collected based on user consent.</li>
+                </ul>
+            </div>
 
-        <div class="section">
-            <h2>8. 개인정보 처리방침 변경</h2>
-            <p>개인정보처리방침이 변경되는 경우, 변경 사항을 앱 내 알림 기능과 개인정보처리방침을 통해 안내합니다.</p>
-        </div>
+            <div class="section">
+                <h2>4. Retention and Use Period</h2>
+                <ul>
+                    <li>App Settings: Until the app is deleted.</li>
+                    <li>Error Logs: Deleted within 30 days after error resolution.</li>
+                    <li>User Feedback: Deleted within 1 year after processing.</li>
+                    <li>Device Information: Until the app is deleted.</li>
+                </ul>
+            </div>
 
-        <div class="section">
-            <h2>9. 개인정보 보호책임자</h2>
-            <p>개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
-            <ul>
-                <li>성명: 안희승</li>
-                <li>연락처: tkforbl@gmail.com</li>
-            </ul>
-        </div>
+            <div class="section">
+                <h2>5. Provision of Personal Information to Third Parties</h2>
+                <p>TK4BL provides personal information to third parties only in the following cases:</p>
+                <ul>
+                    <li>With user consent.</li>
+                    <li>When required by law.</li>
+                    <li>Providing anonymized information to Firebase Crashlytics for error analysis.</li>
+                </ul>
+            </div>
 
-        <div class="section">
-            <h2>10. 문의 및 불만처리</h2>
-            <p>개인정보 처리에 관한 문의사항이 있으시면 아래로 연락해 주시기 바랍니다.</p>
-            <ul>
-                <li>이메일: tkforbl@gmail.com</li>
-                <li>처리 기간: 접수 후 14일 이내</li>
-            </ul>
-        </div>
+            <div class="section">
+                <h2>6. Measures for Securing Personal Information</h2>
+                <ul>
+                    <li>Encryption: Storing important information encrypted.</li>
+                    <li>Access Control: Restricting access rights to personal information.</li>
+                    <li>Secure Transmission: Secure data transmission via HTTPS.</li>
+                    <li>Regular Inspection: Regular checks on personal information protection status.</li>
+                </ul>
+            </div>
 
-        <div class="important-notice">
-            <h3>중요 안내</h3>
-            <ul>
-                <li>이 개인정보처리방침은 AVC 앱의 개인정보 수집 및 이용에 관한 사항을 규정합니다.</li>
-                <li>사용자는 이 방침에 동의함으로써 개인정보 수집 및 이용에 동의한 것으로 간주됩니다.</li>
-                <li>개인정보 처리와 관련한 문의사항은 언제든지 연락해 주시기 바랍니다.</li>
-            </ul>
+            <div class="section">
+                <h2>7. User Rights</h2>
+                <p>Users have the following rights:</p>
+                <ul>
+                    <li>Right to request access to personal information.</li>
+                    <li>Right to request correction or deletion of personal information.</li>
+                    <li>Right to request suspension of processing of personal information.</li>
+                    <li>Right to request data portability.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>8. Changes to the Privacy Policy</h2>
+                <p>In the event of changes to the Privacy Policy, the changes will be announced through in-app notifications and the Privacy Policy itself.</p>
+            </div>
+
+            <div class="section">
+                <h2>9. Personal Information Protection Officer & Inquiries</h2>
+                <p>TK4BL has designated a Personal Information Protection Officer to oversee tasks related to personal information processing and to handle complaints and remedy damages for data subjects. If you have any inquiries, please contact us below.</p>
+                <ul>
+                    <li><strong>Personal Information Protection Officer:</strong> TK4BL</li>
+                    <li><strong>Email:</strong> tkforbl@gmail.com</li>
+                    <li><strong>Processing Period:</strong> We will respond within 14 days of receipt.</li>
+                </ul>
+            </div>
+
+
+            <div class="important-notice">
+                <h3>Important Notice</h3>
+                <ul>
+                    <li>This Privacy Policy governs the collection and use of personal information for TK4BL apps.</li>
+                    <li>By agreeing to this policy, the user is deemed to have consented to the collection and use of personal information.</li>
+                    <li>Please feel free to contact us at any time with inquiries related to personal information processing.</li>
+                </ul>
+            </div>
         </div>
-    </div>
-</body>
+        <div id="lang-ko" style="display: none;">
+            <h1>개인정보처리방침</h1>
+
+            <div class="header-meta">
+                <h2 class="app-title">TK4BL</h2>
+                <p class="update-date">최종 업데이트: 2025. 11. 8.(토)</p>
+            </div>
+
+            <div class="section">
+                <h2>1. 개인정보 수집 및 이용 목적</h2>
+                <p>TK4BL은 다음과 같은 목적으로 개인정보를 수집하고 이용합니다.</p>
+
+                <h3>AVC (App Volume Controller)</h3>
+                <ul>
+                    <li>앱 기능 제공: 앱별 볼륨 제어 기능을 위한 설정 정보 저장 및 적용</li>
+                    <li>오류 개선: 앱 안정성 향상을 위한 오류 보고 및 진단 정보 수집</li>
+                    <li>서비스 개선: 사용자 의견을 통한 서비스 품질 향상</li>
+                </ul>
+
+                </div>
+
+            <div class="section">
+                <h2>2. 수집하는 개인정보 항목</h2>
+                <h3>공통</h3>
+                <ul>
+                    <li>개인식별정보, 개인민감정보: 미수집</li>
+                </ul>
+
+                <h3>AVC (App Volume Controller)</h3>
+                <ul>
+                    <li>앱 설정 정보
+                        <ul>
+                            <li>볼륨 UI 표시 타입, 좌표(X,Y), 크기 설정</li>
+                            <li>수동 볼륨 변경 시 표시 여부</li>
+                            <li>앱 감지 시 이름 표시 여부</li>
+                            <li>가로 모드 좌표 및 별도 설정 사용 여부</li>
+                            <li>폰트 크기 및 오버레이 표시 시간</li>
+                            <li>볼륨 표시 모드 설정</li>
+                            <li>디바운싱 활성화 및 지연 시간 설정</li>
+                        </ul>
+                    </li>
+                    <li>오류 로그: 앱 실행 중 발생하는 오류 및 예외 정보</li>
+                    <li>기기 정보: 앱 버전, 기기 모델, Android 버전 등</li>
+                    <li>사용자 의견: 오류 보고 시 입력하는 추가 설명 내용</li>
+                </ul>
+
+                </div>
+
+            <div class="section">
+                <h2>3. 개인정보 수집 방법</h2>
+                <ul>
+                    <li>자동 수집: 앱 사용 중 자동으로 수집되는 정보</li>
+                    <li>수동 입력: 사용자가 직접 입력하는 설정 및 의견</li>
+                    <li>권한 기반: 사용자 동의 하에 수집되는 정보</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>4. 개인정보 보유 및 이용 기간</h2>
+                <ul>
+                    <li>앱 설정 정보: 앱 삭제 시까지</li>
+                    <li>오류 로그: 오류 해결 완료 후 30일 이내 삭제</li>
+                    <li>사용자 의견: 의견 처리 완료 후 1년 이내 삭제</li>
+                    <li>기기 정보: 앱 삭제 시까지</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>5. 개인정보 제3자 제공</h2>
+                <p>TK4BL은 다음과 같은 경우에만 개인정보를 제3자에게 제공합니다:</p>
+                <ul>
+                    <li>사용자 동의가 있는 경우</li>
+                    <li>법령에 의해 요구되는 경우</li>
+                    <li>오류 분석을 위해 Firebase Crashlytics에 익명화된 정보 제공</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>6. 개인정보 보호 조치</h2>
+                <ul>
+                    <li>암호화: 중요 정보는 암호화하여 저장</li>
+                    <li>접근 제한: 개인정보에 대한 접근 권한 제한</li>
+                    <li>안전한 전송: HTTPS를 통한 안전한 데이터 전송</li>
+                    <li>정기 점검: 개인정보 보호 상태 정기 점검</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>7. 사용자 권리</h2>
+                <p>사용자는 다음과 같은 권리를 가집니다:</p>
+                <ul>
+                    <li>개인정보 열람 요구</li>
+                    <li>개인정보 정정·삭제 요구</li>
+                    <li>개인정보 처리정지 요구</li>
+                    <li>개인정보 이전 요구</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>8. 개인정보 처리방침 변경</h2>
+                <p>개인정보처리방침이 변경되는 경우, 변경 사항을 앱 내 알림 기능과 개인정보처리방침을 통해 안내합니다.</p>
+            </div>
+
+            <div class="section">
+                <h2>9. 개인정보 보호책임자 및 문의처</h2>
+                <p>개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다. 문의사항이 있으시면 아래로 연락해 주시기 바랍니다.</p>
+                <ul>
+                    <li><strong>개인정보 보호책임자:</strong> TK4BL</li>
+                    <li><strong>연락처(이메일):</strong> tkforbl@gmail.com</li>
+                    <li><strong>처리 기간:</strong> 접수 후 14일 이내</li>
+                </ul>
+            </div>
+
+
+            <div class="important-notice">
+                <h3>중요 안내</h3>
+                <ul>
+                    <li>이 개인정보처리방침은 TK4BL 앱에 대한 개인정보 수집 및 이용에 관한 사항을 규정합니다.</li>
+                    <li>사용자는 이 방침에 동의함으로써 개인정보 수집 및 이용에 동의한 것으로 간주됩니다.</li>
+                    <li>개인정보 처리와 관련한 문의사항은 언제든지 연락해 주시기 바랍니다.</li>
+                </ul>
+            </div>
+        </div>
+    <script>
+        // 자주 사용하는 HTML 요소들을 미리 찾아둡니다.
+        const langSelector = document.getElementById('lang-selector');
+        const langEn = document.getElementById('lang-en');
+        const langKo = document.getElementById('lang-ko');
+        const htmlTag = document.getElementsByTagName('html')[0];
+
+        /**
+         * 선택된 언어에 맞게 화면을 변경하는 함수
+         * @param {string} lang - 'en' 또는 'ko'
+         */
+        function setLanguage(lang) {
+            if (lang === 'ko') {
+                // 1. 한국어 콘텐츠를 보여주고 영어를 숨깁니다.
+                langEn.style.display = 'none';
+                langKo.style.display = 'block';
+                // 2. <html> 태그의 언어 속성을 'ko'로 변경합니다.
+                htmlTag.lang = 'ko';
+                // 3. 드롭다운 선택 값을 'ko'로 맞춥니다.
+                langSelector.value = 'ko';
+            } else {
+                // 1. (기본값) 영어 콘텐츠를 보여주고 한국어를 숨깁니다.
+                langEn.style.display = 'block';
+                langKo.style.display = 'none';
+                // 2. <html> 태그의 언어 속성을 'en'으로 변경합니다.
+                htmlTag.lang = 'en';
+                // 3. 드롭다운 선택 값을 'en'으로 맞춥니다.
+                langSelector.value = 'en';
+            }
+        }
+
+        // --- 1. 사용자가 드롭다운 메뉴를 변경할 때 ---
+        langSelector.addEventListener('change', function() {
+            const selectedLang = this.value;
+
+            // ★ 중요: 사용자의 선택을 'sessionStorage'에 저장합니다.
+            // (탭을 닫으면 이 값은 사라집니다)
+            sessionStorage.setItem('tk4blLang', selectedLang);
+
+            // 화면을 해당 언어로 변경합니다.
+            setLanguage(selectedLang);
+        });
+
+        // --- 2. 페이지가 처음 로드될 때 (새로고침 포함) ---
+        // (즉시 실행 함수 사용)
+        (function onPageLoad() {
+            // ★ 중요: 'sessionStorage'에서 이전에 저장한 언어 값을 가져옵니다.
+            const savedLang = sessionStorage.getItem('tk4blLang');
+
+            if (savedLang) {
+                // 저장된 값이 있다면, 그 값으로 언어를 설정합니다.
+                setLanguage(savedLang);
+            } else {
+                // 저장된 값이 없다면 (첫 방문), 기본값(영어)으로 설정합니다.
+                setLanguage('en');
+            }
+        })();
+    </script>
+    </body>
 </html>
