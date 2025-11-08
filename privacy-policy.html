@@ -15,7 +15,7 @@
             font-family: 'Malgun Gothic', 'Apple Gothic', 'Noto Sans CJK KR', sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f8f9fa;
+            background-color: #a9a9a9;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -23,7 +23,7 @@
 
         .container {
             position: relative; /* 언어 선택기 위치의 기준 */
-            background-color: white;
+            background-color: #e9ecef;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -229,6 +229,61 @@ h1 {
                 display: none;
             }
         }
+
+        /* --- START: 다크 모드 스타일 (추가) --- */
+
+        @media (prefers-color-scheme: dark) {
+
+            /* 1. 바깥 배경 (가장 어둡게) */
+            body {
+                background-color: #121212; /* 매우 어두운 회색 */
+                color: #e0e0e0; /* 기본 글자색을 밝게 */
+            }
+
+            /* 2. 글자 영역 (중간 어둡게) */
+            .container {
+                background-color: #1e1e1e;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            }
+
+            /* 3. 항목 영역 (살짝 밝은 어두움) */
+            .section {
+                background-color: #2c2c2c;
+                border-left-color: #4a90e2; /* 파란색도 살짝 밝게 */
+            }
+
+            /* 4. 제목 및 글자색 */
+            h1 {
+                color: #f1f1f1;
+                border-bottom-color: #4a90e2;
+            }
+            .app-title, .section h2 {
+                color: #4a90e2; /* 밝은 파란색 */
+            }
+            .section h3 {
+                color: #f1f1f1;
+            }
+            .update-date {
+                color: #888;
+            }
+
+            /* 5. 중요 안내 박스 */
+            .important-notice {
+                background-color: #4d441f; /* 어두운 노란색 계열 */
+                border-color: #9e8c4b;
+            }
+            .important-notice h3, .important-notice li {
+                color: #ffeaa7; /* 밝은 노란색 글자 */
+            }
+
+            /* 6. 언어 선택기 */
+            #lang-selector {
+                background-color: #333;
+                color: #f1f1f1;
+                border-color: #555;
+            }
+        }
+        /* --- END: 다크 모드 스타일 --- */
     </style>
 </head>
 <body>
