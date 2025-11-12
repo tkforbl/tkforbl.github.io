@@ -338,9 +338,30 @@ h1 {
                     <li>Error Logs: Information on errors and exceptions occurring during app execution.</li>
                     <li>Device Information: App version, device model, Android version, etc.</li>
                     <li>User Feedback: Additional explanatory content entered by the user when reporting an error.</li>
-                    <li><strong>AccessibilityService Permission:</strong> Used to detect the currently running app to perform the core function of 'auto-applying volume per app'. This information is processed only on the device.</li>
-                    <li><strong>Query All Packages Permission (QUERY_ALL_PACKAGES):</strong> Used to display a list of installed apps for the user to configure.</li>
-                    <li><strong>Display Over Other Apps Permission (SYSTEM_ALERT_WINDOW):</strong> Used to display the set volume value as a number on the screen when the volume is changed.</li>
+                    <li><strong>Permissions</strong>
+                        <ul>
+                            <li><strong>Accessibility Service (AccessibilityService)</strong>
+                                <ul>
+                                    <li><strong>Purpose:</strong> Used to detect app activity in real-time to use the 'per-app volume control' feature.</li>
+                                    <li>This information is processed only on the device.</li>
+                                    <li>However, when using the 'error reporting' feature, with user consent, the active app name and package name detected and collected through this permission are transmitted to the developer.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Installed Apps List (QUERY_ALL_PACKAGES)</strong>
+                                <ul>
+                                    <li><strong>Purpose:</strong> Due to app functionality characteristics, the list of installed apps is collected in advance to prevent device overheating and battery consumption.</li>
+                                    <li>This information is processed only on the device.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Display Over Other Apps (SYSTEM_ALERT_WINDOW)</strong>
+                                <ul>
+                                    <li><strong>Purpose:</strong> Used to display app names and volume values on the screen when active app detection or volume changes occur.</li>
+                                    <li>This information is processed only on the device.</li>
+                                    <li>However, when using the 'error reporting' feature, with user consent, app names and volume values from the information displayed through this permission are transmitted to the developer.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
                 </div>
 
@@ -463,9 +484,30 @@ h1 {
                     <li>오류 로그: 앱 실행 중 발생하는 오류 및 예외 정보</li>
                     <li>기기 정보: 앱 버전, 기기 모델, Android 버전 등</li>
                     <li>사용자 의견: 오류 보고 시 입력하는 추가 설명 내용</li>
-                    <li><strong>접근성 서비스 권한 (AccessibilityService):</strong> '앱별 볼륨 자동 적용'이라는 핵심 기능 수행을 위해, 현재 실행 중인 앱을 감지하는 데 사용합니다. 이 정보는 기기 내에서만 처리됩니다.</li>
-                    <li><strong>설치된 앱 목록 권한 (QUERY_ALL_PACKAGES):</strong> 사용자가 볼륨을 설정하고자 하는 앱의 목록을 표시하기 위해 사용합니다.</li>
-                    <li><strong>다른 앱 위에 표시 권한 (SYSTEM_ALERT_WINDOW):</strong> 볼륨 변경 시, 설정한 볼륨 값을 화면에 숫자로 표시하기 위해 사용합니다.</li>
+                    <li><strong>권한</strong>
+                        <ul>
+                            <li><strong>접근성 서비스(AccessibilityService)</strong>
+                                <ul>
+                                    <li><strong>용도:</strong> 앱 기능 '앱별 볼륨 조절'을 사용하기 위해 앱 활성을 실시간으로 감지합니다.</li>
+                                    <li>이 정보는 기기 내에서만 처리합니다.</li>
+                                    <li>단, '오류 보고' 기능 사용 시 사용자 동의하에 이 권한으로 감지하고 수집한 활성 앱 이름과 패키지명을 개발자에게 전송합니다.</li>
+                                </ul>
+                            </li>
+                            <li><strong>설치된 앱 목록(QUERY_ALL_PACKAGES)</strong>
+                                <ul>
+                                    <li><strong>용도:</strong> 앱 기능 특성상 기기 발열 방지, 배터리 소모 감소를 위해 설치된 앱 목록을 미리 수집합니다.</li>
+                                    <li>이 정보는 기기 내에서만 처리됩니다.</li>
+                                </ul>
+                            </li>
+                            <li><strong>다른 앱 위에 표시(SYSTEM_ALERT_WINDOW)</strong>
+                                <ul>
+                                    <li><strong>용도:</strong> 활성 앱 감지 또는 볼륨 조절 시, 앱 이름과 볼륨 값을 화면에 표시합니다.</li>
+                                    <li>이 정보는 기기 내에서만 처리됩니다.</li>
+                                    <li>단, '오류 보고' 기능 사용 시 사용자 동의하에 이 권한으로 표시하는 정보 중 앱 이름, 볼륨 값을 개발자에게 전송합니다.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
 
                 </div>
