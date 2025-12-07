@@ -6,11 +6,83 @@
     <title>Time Keeper for Better Life</title>
     <style>
         :root {
+            --bg-color: #cecece;
+            --card-bg: #f0f0f0;
+            --text-main: #000000;
+            --text-sub: #666666;
+            --accent: #0078d4;
+            --text-footer: #444444;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --card-bg: #1e1e1e;
+                --text-main: #ffffff;
+                --text-sub: #aaaaaa;
+                --accent: #0078d4;
+                --text-footer: #888888;
+            }
+            .card {
+                border-color: #333;
+            }
+            .language-selector select, .theme-selector select {
+                border-color: #555;
+            }
+        }
+
+        [data-theme="light"] {
+            --bg-color: #cecece;
+            --card-bg: #f0f0f0;
+            --text-main: #000000;
+            --text-sub: #666666;
+            --accent: #0078d4;
+            --text-footer: #444444;
+        }
+
+        [data-theme="dark"] {
             --bg-color: #121212;
             --card-bg: #1e1e1e;
             --text-main: #ffffff;
             --text-sub: #aaaaaa;
             --accent: #0078d4;
+            --text-footer: #888888;
+        }
+
+        [data-theme="light"] .card {
+            border-color: #333;
+        }
+
+        [data-theme="dark"] .card {
+            border-color: #333;
+        }
+
+
+
+        [data-theme="light"] .language-selector select, [data-theme="light"] .theme-selector select {
+            background-color: #f0f0f0;
+            color: #000000;
+            border-color: #ccc;
+        }
+
+        [data-theme="dark"] .language-selector select, [data-theme="dark"] .theme-selector select {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border-color: #555;
+        }
+
+        [data-theme="light"] h1 {
+            background: linear-gradient(45deg, #333, #777), rgba(128, 128, 128, 0.2);
+            background-clip: text, padding-box;
+            -webkit-background-clip: text, padding-box;
+            -webkit-text-fill-color: transparent;
+        }
+
+        [data-theme="dark"] h1 {
+            background: linear-gradient(45deg, #fff, #aaa), rgba(128, 128, 128, 0.2);
+            background-clip: text, padding-box;
+            -webkit-background-clip: text, padding-box;
+            -webkit-text-fill-color: transparent;
         }
         body {
             background-color: var(--bg-color);
@@ -27,7 +99,7 @@
         .language-selector {
             position: fixed;
             top: 20px;
-            right: 20px;
+            right: 120px;
             z-index: 1000;
         }
         .language-selector select {
@@ -44,6 +116,27 @@
             border-color: var(--accent);
         }
 
+        /* 테마 선택기 */
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .theme-selector select {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .theme-selector select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
         /* 헤더 섹션 */
         header {
             text-align: center;
@@ -53,10 +146,30 @@
             font-size: 2.5rem;
             margin: 0;
             letter-spacing: -1px;
-            background: linear-gradient(45deg, #888, #fff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background: rgba(128, 128, 128, 0.5);
+            background-clip: padding-box;
+            -webkit-background-clip: padding-box;
+            border: 2px solid rgba(128, 128, 128, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        @media (prefers-color-scheme: light) {
+            h1 {
+                background: linear-gradient(45deg, #333, #777), rgba(128, 128, 128, 0.2);
+                background-clip: text, padding-box;
+                -webkit-background-clip: text, padding-box;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            h1 {
+                background: linear-gradient(45deg, #fff, #aaa), rgba(128, 128, 128, 0.2);
+                background-clip: text, padding-box;
+                -webkit-background-clip: text, padding-box;
+                -webkit-text-fill-color: transparent;
+            }
         }
         .slogan {
             font-size: 1.2rem;
@@ -89,7 +202,7 @@
         }
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 20px rgba(0, 120, 212, 0.3);
             border-color: var(--accent);
         }
         .card h3 {
@@ -112,7 +225,7 @@
         footer {
             margin-top: auto;
             padding: 40px;
-            color: #444;
+            color: var(--text-footer);
             font-size: 0.8rem;
         }
     </style>
@@ -123,6 +236,14 @@
         <select id="language-select">
             <option value="en" data-key="lang-en">English</option>
             <option value="ko" data-key="lang-ko">Korean - 한국어</option>
+        </select>
+    </div>
+
+    <div class="theme-selector">
+        <select id="theme-select">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
         </select>
     </div>
 
@@ -202,8 +323,21 @@
             });
         }
 
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            document.getElementById('theme-select').value = theme;
+        }
+
         document.getElementById('language-select').addEventListener('change', function() {
-            setLanguage(this.value);
+            const selectedLang = this.value;
+            sessionStorage.setItem('tk4blLang', selectedLang);
+            setLanguage(selectedLang);
+        });
+
+        document.getElementById('theme-select').addEventListener('change', function() {
+            const selectedTheme = this.value;
+            sessionStorage.setItem('tk4blTheme', selectedTheme);
+            setTheme(selectedTheme);
         });
 
         // Auto-detect language based on browser settings
@@ -217,8 +351,23 @@
             return 'en'; // Default to English
         }
 
-        // Initialize with detected language
-        setLanguage(detectLanguage());
+        // Initialize with detected language or saved preference
+        (function onPageLoad() {
+            const savedLang = sessionStorage.getItem('tk4blLang');
+            if (savedLang) {
+                setLanguage(savedLang);
+            } else {
+                const detectedLang = detectLanguage();
+                setLanguage(detectedLang);
+            }
+
+            const savedTheme = sessionStorage.getItem('tk4blTheme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else {
+                setTheme('system');
+            }
+        })();
     </script>
 
 </body>

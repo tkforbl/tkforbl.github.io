@@ -682,6 +682,20 @@ h1 {
             setLanguage(selectedLang);
         });
 
+        /**
+         * 브라우저의 언어 설정을 감지하는 함수
+         * @returns {string} 'en' 또는 'ko'
+         */
+        function detectLanguage() {
+            const languages = navigator.languages || [navigator.language];
+            for (const lang of languages) {
+                if (lang.startsWith('ko')) {
+                    return 'ko';
+                }
+            }
+            return 'en'; // 기본값 영어
+        }
+
         // --- 2. 페이지가 처음 로드될 때 (새로고침 포함) ---
         // (즉시 실행 함수 사용)
         (function onPageLoad() {
@@ -692,8 +706,9 @@ h1 {
                 // 저장된 값이 있다면, 그 값으로 언어를 설정합니다.
                 setLanguage(savedLang);
             } else {
-                // 저장된 값이 없다면 (첫 방문), 기본값(영어)으로 설정합니다.
-                setLanguage('en');
+                // 저장된 값이 없다면, 브라우저 언어를 감지하여 설정합니다.
+                const detectedLang = detectLanguage();
+                setLanguage(detectedLang);
             }
         })();
     </script>
