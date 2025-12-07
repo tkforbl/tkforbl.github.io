@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TK4BL - Time Keeper For Better Life</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-sub: #aaaaaa;
+            --accent: #0078d4;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 언어 선택기 */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .language-selector select {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .language-selector select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* 헤더 섹션 */
+        header {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, #fff, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .slogan {
+            font-size: 1.2rem;
+            color: var(--text-sub);
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        /* 제품 그리드 섹션 */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            width: 90%;
+            padding: 40px 0;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border-color: var(--accent);
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin: 0 0 15px 0;
+            color: var(--accent);
+        }
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+        .arrow {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 40px;
+            color: #444;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body data-lang="en">
+
+    <div class="language-selector">
+        <select id="language-select">
+            <option value="en" data-key="lang-en">English</option>
+            <option value="ko" data-key="lang-ko">Korean - 한국어</option>
+        </select>
+    </div>
+
+    <header>
+        <h1>TK4BL</h1>
+        <div class="slogan" data-key="slogan">Time Keeper For Better Life</div>
+    </header>
+
+    <section class="products">
+        <a href="/avc/" class="card">
+            <div>
+                <h3 data-key="avc-title">App Volume Control</h3>
+                <p data-key="avc-desc">Control app volumes freely.<br>Essential Android volume manager.</p>
+            </div>
+            <div class="arrow" data-key="coming-soon">Coming Soon &rarr;</div>
+        </a>
+
+        <a href="/knitting/" class="card">
+            <div>
+                <h3 data-key="knitting-title">Knitting</h3>
+                <p data-key="knitting-desc">Manage knitting patterns and records.<br>Record your hobbies more enjoyably.</p>
+            </div>
+            <div class="arrow" data-key="coming-soon">Coming Soon &rarr;</div>
+        </a>
+
+        <a href="/dev_helper/" class="card">
+            <div>
+                <h3 data-key="dev-helper-title">Dev Helper</h3>
+                <p data-key="dev-helper-desc">Automation utilities for Android developers.<br>Wireless debugging port detection and environment setup automation tools.</p>
+            </div>
+            <div class="arrow" data-key="coming-soon">Coming Soon &rarr;</div>
+        </a>
+    </section>
+
+    <footer data-key="footer">
+        &copy; 2025 TK4BL. All rights reserved.
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                slogan: "Time Keeper For Better Life",
+                "avc-title": "App Volume Control",
+                "avc-desc": "Control app volumes freely.<br>Essential Android volume manager.",
+                "knitting-title": "Knitting",
+                "knitting-desc": "Manage knitting patterns and records.<br>Record your hobbies more enjoyably.",
+                "dev-helper-title": "Dev Helper",
+                "dev-helper-desc": "Automation utilities for Android developers.<br>Wireless debugging port detection and environment setup automation tools.",
+                "coming-soon": "Coming Soon &rarr;",
+                "lang-en": "English",
+                "lang-ko": "Korean - 한국어",
+                footer: "&copy; 2025 TK4BL. All rights reserved."
+            },
+            ko: {
+                slogan: "당신의 시간을 아껴 더 나은 삶을 만듭니다.",
+                "avc-title": "App Volume Control",
+                "avc-desc": "앱별 볼륨을 자유자재로 제어하세요.<br>안드로이드 필수 볼륨 매니저.",
+                "knitting-title": "Knitting",
+                "knitting-desc": "뜨개질 도안과 기록을 관리하세요.<br>취미 생활을 더 즐겁게 기록하세요.",
+                "dev-helper-title": "Dev Helper",
+                "dev-helper-desc": "안드로이드 개발자를 위한 자동화 유틸리티.<br>무선 디버깅 포트 감지 및 환경 설정 자동화 도구.",
+                "coming-soon": "Coming Soon &rarr;",
+                "lang-en": "English",
+                "lang-ko": "Korean - 한국어",
+                footer: "&copy; 2025 TK4BL. All rights reserved."
+            }
+        };
+
+        function setLanguage(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.getElementById('language-select').value = lang;
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        document.getElementById('language-select').addEventListener('change', function() {
+            setLanguage(this.value);
+        });
+
+        // Auto-detect language based on browser settings
+        function detectLanguage() {
+            const languages = navigator.languages || [navigator.language];
+            for (const lang of languages) {
+                if (lang.startsWith('ko')) {
+                    return 'ko';
+                }
+            }
+            return 'en'; // Default to English
+        }
+
+        // Initialize with detected language
+        setLanguage(detectLanguage());
+    </script>
+
+</body>
+</html>
