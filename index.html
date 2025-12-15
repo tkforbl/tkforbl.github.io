@@ -58,10 +58,6 @@
             border-color: #333;
         }
 
-
-
-
-
         [data-theme="light"] h1 {
             background: linear-gradient(45deg, #333, #777), rgba(128, 128, 128, 0.2);
             background-clip: text, padding-box;
@@ -86,14 +82,35 @@
             min-height: 100vh;
         }
 
-        /* 언어 선택기 */
-        .language-selector {
-            position: fixed;
-            top: 20px;
-            right: 120px;
-            z-index: 1000;
+        /* ☆ 추가: 최상단 프레임 (제목 + 컨트롤) */
+        .top-header-frame {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: center; /* ☆ 수정: space-between -> center (제목을 가로 가운데 정렬) */
+            align-items: center;
+            background-color: var(--bg-color);
+            position: relative; /* ☆ 추가: 자식 요소(선택기)의 절대 위치 기준점 */
         }
-        .language-selector select {
+
+        /* ☆ 추가: 언어/테마 선택기를 감싸는 그룹 */
+        .controls-wrapper {
+            display: flex;
+            gap: 10px; /* 선택기 사이 간격 */
+            align-items: center;
+            position: absolute; /* ☆ 추가: 제목 흐름에 영향 주지 않고 독립적으로 배치 */
+            right: 30px; /* ☆ 추가: 오른쪽 끝 고정 (프레임 패딩과 동일값 권장) */
+        }
+
+        /* ☆ 수정: 고정 위치(fixed) 제거 및 스타일 단순화 */
+        .language-selector, .theme-selector {
+            position: static; /* ☆ 수정: fixed -> static */
+            /* top, right 속성 삭제됨 */
+            z-index: auto;
+        }
+        
+        .language-selector select, .theme-selector select {
             background-color: var(--card-bg);
             color: var(--text-main);
             border: 1px solid var(--input-border);
@@ -102,47 +119,84 @@
             font-size: 0.9rem;
             cursor: pointer;
         }
-        .language-selector select:focus {
+
+        .language-selector select:focus, .theme-selector select:focus {
             outline: none;
             border-color: var(--accent);
         }
 
-        /* 테마 선택기 */
-        .theme-selector {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
+        /* ☆ 추가: 카테고리 네비게이션 스타일 */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px; /* 항목 간 간격 */
+            padding: 10px 0 20px 0;
+            width: 100%;
+            flex-wrap: wrap; /* 화면이 좁으면 줄바꿈 허용 */
         }
-        .theme-selector select {
-            background-color: var(--card-bg);
+
+        /* ☆ 추가: 카테고리 링크 스타일 */
+        .category-nav a {
+            text-decoration: none;
             color: var(--text-main);
-            border: 1px solid var(--input-border);
-            border-radius: 5px;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-        .theme-selector select:focus {
-            outline: none;
-            border-color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
         }
 
-        /* 헤더 섹션 */
+        /* ☆ 추가: 마우스 오버 시 효과 */
+        .category-nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ☆ 추가: 활성화된 탭 느낌 (선택 사항, 밑줄 효과) */
+        .category-nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: var(--accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .category-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ☆ 추가: 고급진 구분선 스타일 */
+        .fancy-divider {
+            width: 95%;
+            max-width: 1200px;
+            height: 1px;
+            border: none;
+            /* 중앙은 진하고 양끝은 투명한 그라디언트 */
+            background: linear-gradient(90deg, transparent, var(--input-border), var(--accent), var(--input-border), transparent);
+            margin: 0 auto;
+            opacity: 0.6;
+        }
+
+        /* 헤더 섹션 (슬로건 영역) */
         header {
             text-align: center;
-            padding: 80px 20px;
+            padding: 0 20px 20px 20px; /* ☆ 수정: 상단 여백 제거 (구분선 아래까지 올림) */
         }
+
         h1 {
-            font-size: 2.5rem;
+            font-size: 1.8rem; /* ☆ 수정: 상단바에 맞게 크기 조정 */
             margin: 0;
             letter-spacing: -1px;
+            /* 기존 스타일 유지 */
             background: rgba(128, 128, 128, 0.5);
             background-clip: padding-box;
             -webkit-background-clip: padding-box;
             border: 2px solid rgba(128, 128, 128, 0.5);
-            padding: 10px;
+            padding: 8px 15px; /* ☆ 수정: 패딩 조정 */
             border-radius: 10px;
+            white-space: nowrap; /* ☆ 추가: 줄바꿈 방지 */
         }
 
         @media (prefers-color-scheme: light) {
@@ -219,27 +273,77 @@
             color: var(--text-footer);
             font-size: 0.8rem;
         }
+
+        /* ☆ 추가: footer 링크 스타일 */
+        footer a {
+            color: #87ceeb; /* 연한 파란색 */
+            text-decoration: none;
+        }
+
+        footer a:hover, footer a:active {
+            color: #ff6b6b; /* 연한 빨강 */
+        }
+
+        /* ☆ 수정: 라이트 모드에서 footer 링크 색상을 더 어두운 파란색으로 */
+        [data-theme="light"] footer a {
+            color: #0066cc; /* 어두운 파란색 */
+        }
+
+        /* ☆ 추가: 모바일 화면 대응 */
+        @media (max-width: 768px) {
+            .top-header-frame {
+                flex-direction: column; /* 세로 정렬 */
+                gap: 15px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.5rem;
+                width: 100%;
+                text-align: center;
+            }
+            .controls-wrapper {
+                width: 100%;
+                justify-content: flex-end; /* 우측 정렬 */
+                position: static; /* ☆ 추가: 모바일에서는 흐름에 따라 배치되도록 절대 위치 해제 */
+            }
+        }
     </style>
 </head>
 <body data-lang="en">
 
-    <div class="language-selector">
-        <select id="language-select">
-            <option value="en" data-key="lang-en">English</option>
-            <option value="ko" data-key="lang-ko">Korean - 한국어</option>
-        </select>
+    <div class="top-header-frame">
+        <h1>Time Keeper for Better Life</h1>
+
+        <div class="controls-wrapper">
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en" data-key="lang-en">English</option>
+                    <option value="ko" data-key="lang-ko">Korean - 한국어</option>
+                </select>
+            </div>
+
+            <div class="theme-selector">
+                <select id="theme-select">
+                    <option value="system">System</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+            </div>
+        </div>
     </div>
 
-    <div class="theme-selector">
-        <select id="theme-select">
-            <option value="system">System</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-        </select>
-    </div>
+    <!--
+    <nav class="category-nav">
+        <a href="#" data-key="cat-menu">Menu</a>
+        <a href="#" data-key="cat-products">Products</a>
+        <a href="#" data-key="cat-community">Community</a>
+        <a href="#" data-key="cat-support">Support</a>
+    </nav>
+    -->
+
+    <hr class="fancy-divider">
 
     <header>
-        <h1>Time Keeper for Better Life</h1>
         <div class="slogan" data-key="slogan">Designing Comfort</div>
     </header>
 
@@ -277,6 +381,13 @@
         const translations = {
             en: {
                 slogan: "Designing Comfort",
+
+                // ☆ 추가: 카테고리 영문 표기
+                "cat-menu": "Menu",
+                "cat-products": "Products",
+                "cat-community": "Community",
+                "cat-support": "Support",
+
                 "avc-title": "App Volume Control",
                 "avc-desc": "Control app volumes freely.<br>Essential Android volume manager.",
                 "knitting-title": "Knitting",
@@ -286,10 +397,17 @@
                 "coming-soon": "Coming Soon &rarr;",
                 "lang-en": "English",
                 "lang-ko": "Korean - 한국어",
-                footer: "&copy; 2025 TK4BL. All rights reserved."
+                footer: "&copy; 2025 TK4BL. All rights reserved. | <a href=\"privacy-policy.html\">Privacy Policy</a>"
             },
             ko: {
                 slogan: "편안함을 설계합니다",
+
+                // ☆ 추가: 카테고리 국문 표기
+                "cat-menu": "메뉴",
+                "cat-products": "제품",
+                "cat-community": "커뮤니티",
+                "cat-support": "고객지원",
+
                 "avc-title": "App Volume Control",
                 "avc-desc": "앱별 볼륨을 자유자재로 제어하세요.<br>안드로이드 필수 볼륨 매니저.",
                 "knitting-title": "Knitting",
@@ -299,7 +417,7 @@
                 "coming-soon": "Coming Soon &rarr;",
                 "lang-en": "English",
                 "lang-ko": "Korean - 한국어",
-                footer: "&copy; 2025 TK4BL. All rights reserved."
+                footer: "&copy; 2025 TK4BL. All rights reserved. | <a href=\"privacy-policy.html\">개인정보처리방침</a>"
             }
         };
 
@@ -342,8 +460,9 @@
             return 'en'; // Default to English
         }
 
-        // Initialize with detected language or saved preference
-        (function onPageLoad() {
+        // ☆ 수정: 페이지가 보이거나(로드), 뒤로 가기로 돌아왔을 때 항상 실행되도록 변경
+        function applySettings() {
+            // 언어 설정 로드
             const savedLang = sessionStorage.getItem('tk4blLang');
             if (savedLang) {
                 setLanguage(savedLang);
@@ -352,13 +471,17 @@
                 setLanguage(detectedLang);
             }
 
+            // 테마 설정 로드 (홈페이지와 연동)
             const savedTheme = sessionStorage.getItem('tk4blTheme');
             if (savedTheme) {
                 setTheme(savedTheme);
             } else {
                 setTheme('system');
             }
-        })();
+        }
+
+        // ☆ 추가: pageshow 이벤트에 연결 (뒤로 가기 시 설정 반영 필수)
+        window.addEventListener('pageshow', applySettings);
     </script>
 
 </body>
