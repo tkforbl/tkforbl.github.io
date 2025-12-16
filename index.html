@@ -453,16 +453,42 @@
             auth.signOut();
         });
 
-        // 7. 사용자 정보 DB 저장 함수
+        // 7. 사용자 정보 DB 저장 함수 (구조 변경 적용)
         function saveUserToFirestore(user) {
-            const userRef = db.collection('users').doc(user.uid);
-            userRef.set({
+            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+            // 1) 프로필 정보 저장 (homepage -> user -> profile -> UID)
+            // - 개인 정보 및 통합 플랜 정보 관리
+            // - set({merge: true})를 사용하여 기존 데이터(예: 플랜 정보) 유지
+            const profileRef = db.collection('homepage').doc('user').collection('profile').doc(user.uid);
+            profileRef.set({
                 email: user.email,
                 displayName: user.displayName,
-                lastLogin: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true }) // 기존 데이터 덮어쓰지 않고 병합
+                lastSeen: timestamp,
+                // plan 필드가 없으면 'free'로 초기화하는 로직은 클라우드 함수나 가입 로직에서 처리 권장
+                // 여기서는 기본 정보 갱신만 수행
+            }, { merge: true })
+            .then(() => {
+                console.log("User profile updated.");
+            })
             .catch((error) => {
-                console.error("Error writing user document: ", error);
+                console.error("Error updating user profile: ", error);
+            });
+
+            // 2) 접속 로그 저장 (homepage -> user -> login -> UID)
+            // - 단순히 마지막 로그인 기록만 갱신 (덮어쓰기)
+            const loginRef = db.collection('homepage').doc('user').collection('login').doc(user.uid);
+            loginRef.set({
+                lastLogin: timestamp,
+                email: user.email, // 편의상 이메일도 함께 기록
+                // ip: (클라이언트 JS에서는 정확한 IP 수집이 어려우므로 생략하거나 외부 API 필요)
+                userAgent: navigator.userAgent // 기기 식별용
+            })
+            .then(() => {
+                console.log("Login log updated.");
+            })
+            .catch((error) => {
+                console.error("Error updating login log: ", error);
             });
         }
 
