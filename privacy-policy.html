@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <style>
-        /* ☆ 수정: 홈페이지와 동일한 테마 색상 변수 정의 */
+        /* 1. 기본값 (라이트 모드 기준) */
         :root {
             --bg-color: #cecece;
             --card-bg: #e0e0e0;
@@ -24,12 +24,12 @@
             --important-text: #856404;
         }
 
-        /* ☆ 수정: 다크 모드 변수 (시스템 설정) */
+        /* 2. 다크 모드 (시스템 감지) */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-color: #121212;
                 --card-bg: #1e1e1e;
-                --text-main: #ffffff;
+                --text-main: #aaaaaa;
                 --text-sub: #aaaaaa;
                 --accent: #0078d4;
                 --text-footer: #888888;
@@ -37,18 +37,18 @@
                 --container-bg: #1e1e1e;
                 --section-bg: #2c2c2c;
                 --section-border: #4a90e2;
-                --h1-color: #f1f1f1;
+                --h1-color: #aaaaaa;
                 --h1-border: #4a90e2;
                 --app-title-color: #4a90e2;
                 --date-color: #888;
-                --h3-color: #f1f1f1;
+                --h3-color: #aaaaaa;
                 --important-bg: #4d441f;
                 --important-border: #9e8c4b;
                 --important-text: #ffeaa7;
             }
         }
 
-        /* ☆ 수정: 수동 Light 모드 강제 */
+        /* 3. 수동 라이트 모드 (강제) - 위 :root와 값 동일 */
         [data-theme="light"] {
             --bg-color: #cecece;
             --card-bg: #e0e0e0;
@@ -70,11 +70,11 @@
             --important-text: #856404;
         }
 
-        /* ☆ 수정: 수동 Dark 모드 강제 */
+        /* 4. 수동 다크 모드 (강제) - 위 @media dark와 값 동일 */
         [data-theme="dark"] {
             --bg-color: #121212;
             --card-bg: #1e1e1e;
-            --text-main: #ffffff;
+            --text-main: #aaaaaa;
             --text-sub: #aaaaaa;
             --accent: #0078d4;
             --text-footer: #888888;
@@ -82,11 +82,11 @@
             --container-bg: #1e1e1e;
             --section-bg: #2c2c2c;
             --section-border: #4a90e2;
-            --h1-color: #f1f1f1;
+            --h1-color: #aaaaaa;
             --h1-border: #4a90e2;
             --app-title-color: #4a90e2;
             --date-color: #888;
-            --h3-color: #f1f1f1;
+            --h3-color: #aaaaaa;
             --important-bg: #4d441f;
             --important-border: #9e8c4b;
             --important-text: #ffeaa7;
