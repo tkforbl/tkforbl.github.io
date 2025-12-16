@@ -453,21 +453,23 @@
             auth.signOut();
         });
 
-        // 7. 사용자 정보 DB 저장 함수 (구조 변경 적용)
+        // 7. 사용자 정보 DB 저장 함수 (최종 수정: 프로필 갱신 + 로그 히스토리 쌓기)
         function saveUserToFirestore(user) {
             const timestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-            // 1) 프로필 정보 저장 (homepage -> user -> profile -> UID)
-            // - 개인 정보 및 통합 플랜 정보 관리
-            // - set({merge: true})를 사용하여 기존 데이터(예: 플랜 정보) 유지
+            // ---------------------------------------------------------
+            // 1) 프로필 정보 저장 (위치: homepage/user/profile/{UID})
+            // ---------------------------------------------------------
+            // 역할: 사용자의 최신 상태(이메일, 최근 접속일)를 갱신합니다.
+            // 관리자가 "이 사람의 기본 정보"를 볼 때 사용합니다.
             const profileRef = db.collection('homepage').doc('user').collection('profile').doc(user.uid);
+            
             profileRef.set({
                 email: user.email,
-                displayName: user.displayName,
-                lastSeen: timestamp,
-                // plan 필드가 없으면 'free'로 초기화하는 로직은 클라우드 함수나 가입 로직에서 처리 권장
-                // 여기서는 기본 정보 갱신만 수행
-            }, { merge: true })
+                displayName: user.displayName || 'No Name', // 이름이 없으면 기본값
+                lastSeen: timestamp, // 최근 접속 시간 갱신
+                // 주의: 'plan' 필드는 여기서 건드리지 않습니다. (관리자가 부여한 등급 유지)
+            }, { merge: true }) // merge: true 옵션으로 기존 데이터(예: plan)를 지우지 않고 병합
             .then(() => {
                 console.log("User profile updated.");
             })
@@ -475,20 +477,26 @@
                 console.error("Error updating user profile: ", error);
             });
 
-            // 2) 접속 로그 저장 (homepage -> user -> login -> UID)
-            // - 단순히 마지막 로그인 기록만 갱신 (덮어쓰기)
-            const loginRef = db.collection('homepage').doc('user').collection('login').doc(user.uid);
-            loginRef.set({
-                lastLogin: timestamp,
-                email: user.email, // 편의상 이메일도 함께 기록
-                // ip: (클라이언트 JS에서는 정확한 IP 수집이 어려우므로 생략하거나 외부 API 필요)
-                userAgent: navigator.userAgent // 기기 식별용
+            // ---------------------------------------------------------
+            // 2) 접속 로그 쌓기 (위치: homepage/user/login/{UID}/history/{Auto-ID})
+            // ---------------------------------------------------------
+            // 역할: 로그인 할 때마다 새로운 로그 문서를 추가(Add)합니다.
+            // 문서 ID는 Firestore가 자동으로 생성하므로 충돌이 없고 속도가 빠릅니다.
+            db.collection('homepage')
+              .doc('user')              // 1. 사용자 관리 문서
+              .collection('login')      // 2. 로그인 분류
+              .doc(user.uid)            // 3. 내 UID 바인더 찾기
+              .collection('history')    // 4. 내역(history) 컬렉션 열기
+              .add({                    // 5. 새 로그 추가 (.add 사용 시 ID 자동 생성)
+                loginTime: timestamp, // ★ 정렬 기준 (이 필드로 시간순 정렬 가능)
+                email: user.email,
+                userAgent: navigator.userAgent // 접속 기기/브라우저 정보
             })
-            .then(() => {
-                console.log("Login log updated.");
+            .then((docRef) => {
+                console.log("Login history added with ID: ", docRef.id);
             })
             .catch((error) => {
-                console.error("Error updating login log: ", error);
+                console.error("Error adding login history: ", error);
             });
         }
 
