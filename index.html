@@ -294,6 +294,26 @@
             color: #0066cc;
         }
 
+        /* [수정됨] 상단 헤더용 타이머 스타일 */
+        #idle-timer-badge {
+            /* 위치 고정(fixed) 속성 제거 -> 자연스럽게 배치 */
+            font-family: monospace; /* 숫자가 흔들리지 않게 고정폭 글꼴 사용 */
+            line-height: 1.2;
+            transition: color 0.3s;
+            cursor: default;
+        }
+
+        /* 1분 미만일 때 빨간색 경고 (깜빡임 효과 유지) */
+        #idle-timer-badge.warning {
+            color: #ff4444 !important; /* 강제 적용 */
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+
         /* 모바일 화면 대응 */
         @media (max-width: 768px) {
             .top-header-frame {
@@ -348,7 +368,10 @@
                 </button>
                 
                 <div id="user-profile" style="display: none; align-items: center;">
-                    <span id="user-email" class="user-info"></span>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; margin-right: 12px;">
+                        <span id="user-email" class="user-info" style="margin: 0; font-weight: 600;"></span>
+                        <div id="idle-timer-badge" style="font-size: 0.75rem; color: var(--text-sub);"></div>
+                    </div>
                     <button id="btn-logout" class="btn-logout" data-key="logout-btn">Sign out</button>
                 </div>
             </div>
@@ -423,9 +446,12 @@
                 btnLogin.style.display = 'none';
                 userProfile.style.display = 'flex';
                 userEmail.textContent = user.email.split('@')[0]; // 이메일 앞부분만 표시 (공간 절약)
-                
+
                 // Firestore에 사용자 정보 저장 (최초 로그인 시 문서 생성)
                 saveUserToFirestore(user);
+
+                // 자동 로그아웃 타이머 시작
+                setupAutoLogout();
             } else {
                 // 로그아웃 됨
                 console.log('User signed out');
@@ -598,6 +624,80 @@
         }
 
         window.addEventListener('pageshow', applySettings);
+
+        // 8. 자동 로그아웃 기능 (idle timer)
+        function setupAutoLogout() {
+            const IDLE_TIMEOUT = 60 * 60 * 1000; // 1시간 (밀리초)
+            const WARNING_TIME = 60 * 1000; // 1분 전 경고 (밀리초)
+            let idleTimer = null;
+            let warningTimer = null;
+            const timerBadge = document.getElementById('idle-timer-badge');
+
+            function resetTimer() {
+                clearTimeout(idleTimer);
+                clearTimeout(warningTimer);
+
+                const now = Date.now();
+                const logoutTime = now + IDLE_TIMEOUT;
+
+                // 타이머 업데이트 함수
+                function updateTimer() {
+                    const remaining = logoutTime - Date.now();
+                    if (remaining <= 0) {
+                        auth.signOut();
+                        return;
+                    }
+
+                    const minutes = Math.floor(remaining / 60000);
+                    const seconds = Math.floor((remaining % 60000) / 1000);
+                    const timeText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+                    // 화면 업데이트 부분
+                    if (timerBadge) {
+                        // "Session expires:" 처럼 긴 말 빼고 시간만 깔끔하게 표시
+                        // 혹은 시계 아이콘(⏱️)을 넣어도 좋습니다.
+                        timerBadge.textContent = `⏱️ ${timeText}`;
+
+                        if (remaining < WARNING_TIME) {
+                            timerBadge.classList.add('warning');
+                        } else {
+                            timerBadge.classList.remove('warning');
+                        }
+                    }
+                }
+
+                // 즉시 업데이트
+                updateTimer();
+
+                // 1초마다 업데이트
+                idleTimer = setInterval(updateTimer, 1000);
+
+                // 1분 전 경고 타이머
+                warningTimer = setTimeout(() => {
+                    // 경고는 CSS로 처리
+                }, IDLE_TIMEOUT - WARNING_TIME);
+            }
+
+            // 사용자 활동 이벤트 리스너
+            const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+            events.forEach(event => {
+                document.addEventListener(event, resetTimer, true);
+            });
+
+            // 초기 타이머 시작
+            resetTimer();
+
+            // 로그아웃 시 정리
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    clearTimeout(idleTimer);
+                    clearTimeout(warningTimer);
+                    if (timerBadge) {
+                        timerBadge.textContent = '';
+                    }
+                }
+            });
+        }
     </script>
 
 </body>
