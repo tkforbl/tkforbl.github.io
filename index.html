@@ -625,78 +625,75 @@
 
         window.addEventListener('pageshow', applySettings);
 
-        // 8. 자동 로그아웃 기능 (idle timer)
-        function setupAutoLogout() {
-            const IDLE_TIMEOUT = 60 * 60 * 1000; // 1시간 (밀리초)
-            const WARNING_TIME = 60 * 1000; // 1분 전 경고 (밀리초)
-            let idleTimer = null;
-            let warningTimer = null;
-            const timerBadge = document.getElementById('idle-timer-badge');
+        // 8. 유휴 시간 감지 및 자동 로그아웃 (최종: 클릭 시에만 리셋)
+        let idleInterval = null;
+        let lastActivityTime = Date.now();
 
-            function resetTimer() {
-                clearTimeout(idleTimer);
-                clearTimeout(warningTimer);
+        // 타임아웃 설정: 1시간
+        // (테스트 팁: 10 * 1000 = 10초로 설정해서 로그아웃 되는지 확인해보세요)
+        const IDLE_TIMEOUT = 60 * 60 * 1000;
 
-                const now = Date.now();
-                const logoutTime = now + IDLE_TIMEOUT;
+        function setupAutoLogout(user) {
+            const timerBadge = document.getElementById('idle-timer-badge'); // 헤더의 타이머 위치
+            if(timerBadge) timerBadge.style.display = 'block';
 
-                // 타이머 업데이트 함수
-                function updateTimer() {
-                    const remaining = logoutTime - Date.now();
-                    if (remaining <= 0) {
-                        auth.signOut();
-                        return;
-                    }
+            lastActivityTime = Date.now();
 
-                    const minutes = Math.floor(remaining / 60000);
-                    const seconds = Math.floor((remaining % 60000) / 1000);
-                    const timeText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            // ★ [보안 강화] 타이머 리셋 트리거를 '클릭(click)' 하나로 한정
+            // 마우스만 움직이는 건(mousemove) 활동으로 인정하지 않음 -> 보안성 UP
+            const events = ['click'];
 
-                    // 화면 업데이트 부분
-                    if (timerBadge) {
-                        // "Session expires:" 처럼 긴 말 빼고 시간만 깔끔하게 표시
-                        // 혹은 시계 아이콘(⏱️)을 넣어도 좋습니다.
-                        timerBadge.textContent = `⏱️ ${timeText}`;
+            const updateActivity = () => {
+                lastActivityTime = Date.now();
+                // console.log("User clicked. Timer reset.");
+            };
 
-                        if (remaining < WARNING_TIME) {
-                            timerBadge.classList.add('warning');
-                        } else {
-                            timerBadge.classList.remove('warning');
-                        }
-                    }
-                }
-
-                // 즉시 업데이트
-                updateTimer();
-
-                // 1초마다 업데이트
-                idleTimer = setInterval(updateTimer, 1000);
-
-                // 1분 전 경고 타이머
-                warningTimer = setTimeout(() => {
-                    // 경고는 CSS로 처리
-                }, IDLE_TIMEOUT - WARNING_TIME);
-            }
-
-            // 사용자 활동 이벤트 리스너
-            const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+            // 이벤트 리스너 등록
             events.forEach(event => {
-                document.addEventListener(event, resetTimer, true);
+                document.addEventListener(event, updateActivity);
             });
 
-            // 초기 타이머 시작
-            resetTimer();
+            // 타이머 로직 (setInterval)
+            if (idleInterval) clearInterval(idleInterval);
 
-            // 로그아웃 시 정리
-            auth.onAuthStateChanged((user) => {
-                if (!user) {
-                    clearTimeout(idleTimer);
-                    clearTimeout(warningTimer);
-                    if (timerBadge) {
-                        timerBadge.textContent = '';
+            idleInterval = setInterval(() => {
+                const now = Date.now();
+                const elapsed = now - lastActivityTime;
+                const remaining = IDLE_TIMEOUT - elapsed;
+
+                // 시간 초과 시 로그아웃
+                if (remaining <= 0) {
+                    auth.signOut();
+                    clearInterval(idleInterval);
+                    return;
+                }
+
+                // 남은 시간 표시 (MM:SS)
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                const timeText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+                if (timerBadge) {
+                    timerBadge.textContent = `⏱️ ${timeText}`;
+
+                    // 1분 미만 경고 스타일
+                    if (remaining < 60000) {
+                        timerBadge.classList.add('warning');
+                    } else {
+                        timerBadge.classList.remove('warning');
                     }
                 }
-            });
+
+            }, 1000);
+
+            // 클린업 (로그아웃 시 실행)
+            return () => {
+                events.forEach(event => {
+                    document.removeEventListener(event, updateActivity);
+                });
+                if (idleInterval) clearInterval(idleInterval);
+                if (timerBadge) timerBadge.textContent = '';
+            };
         }
     </script>
 
