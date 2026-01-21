@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<style>
+    <style>
         /* 1. 기본값 (라이트 모드 기준) */
         :root {
             --bg-color: #cecece;
@@ -101,8 +102,10 @@
         body {
             font-family: 'Malgun Gothic', 'Apple Gothic', 'Noto Sans CJK KR', sans-serif;
             line-height: 1.6;
-            color: var(--text-main); /* ☆ 수정: 변수 적용 */
-            background-color: var(--bg-color); /* ☆ 수정: 변수 적용 */
+            color: var(--text-main);
+            /* ☆ 수정: 변수 적용 */
+            background-color: var(--bg-color);
+            /* ☆ 수정: 변수 적용 */
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -111,10 +114,11 @@
         .container {
             position: relative;
             /* 언어 선택기 위치의 기준 */
-            background-color: var(--container-bg); /* ☆ 수정: 변수 적용 */
+            background-color: var(--container-bg);
+            /* ☆ 수정: 변수 적용 */
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         /* --- START: 상단 컨트롤러(언어/테마) 스타일 --- */
@@ -123,12 +127,15 @@
             top: 30px;
             right: 30px;
             z-index: 10;
-            display: flex; /* ☆ 추가: 가로 배치 */
-            gap: 10px; /* ☆ 추가: 요소 간격 */
+            display: flex;
+            /* ☆ 추가: 가로 배치 */
+            gap: 10px;
+            /* ☆ 추가: 요소 간격 */
         }
 
         /* ☆ 수정: 선택기 공통 스타일 적용 */
-        #lang-selector, #theme-selector {
+        #lang-selector,
+        #theme-selector {
             background-color: var(--card-bg);
             color: var(--text-main);
             border: 1px solid var(--input-border);
@@ -137,11 +144,49 @@
             font-size: 0.9rem;
             cursor: pointer;
         }
+
         /* --- END: 상단 컨트롤러 스타일 --- */
 
-/* --- 1. 기본 스타일 (모바일 / 좁은 화면) --- */
+        /* --- START: 뒤로가기 버튼 스타일 --- */
+        .nav-back-container {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+        }
 
-/*
+        #btn-back {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+            /* a 태그로 사용할 경우 대비 */
+        }
+
+        #btn-back:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: rgba(0, 120, 212, 0.1);
+        }
+
+        .back-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        /* --- END: 뒤로가기 버튼 스타일 --- */
+
+        /* --- 1. 기본 스타일 (모바일 / 좁은 화면) --- */
+
+        /*
 
  * 좁은 화면에서는 Flexbox를 사용해 겹침을 방지합니다.
 
@@ -149,83 +194,94 @@
 
  */
 
-/* --- 1. 헤더 레이아웃 (모든 화면 공통) --- */
+        /* --- 1. 헤더 레이아웃 (모든 화면 공통) --- */
 
-/* 1. 부모 (위치 기준점) */
-.header-meta {
-    position: relative; /* 자식 요소들의 'absolute' 기준점이 됨 */
-    height: 1.5em; /* 텍스트 한 줄이 들어갈 높이 */
-    margin-bottom: 30px;
-}
+        /* 1. 부모 (위치 기준점) */
+        .header-meta {
+            position: relative;
+            /* 자식 요소들의 'absolute' 기준점이 됨 */
+            height: 1.5em;
+            /* 텍스트 한 줄이 들어갈 높이 */
+            margin-bottom: 30px;
+        }
 
-h1 {
-    color: var(--h1-color); /* ☆ 수정: 변수 적용 */
-    font-size: 2.2em;
-    margin-bottom: 5px;
-    text-align: center;
-    border-bottom: 2px solid var(--h1-border); /* ☆ 수정: 변수 적용 */
-    padding-bottom: 10px;
-}
+        h1 {
+            color: var(--h1-color);
+            /* ☆ 수정: 변수 적용 */
+            font-size: 2.2em;
+            margin-bottom: 5px;
+            text-align: center;
+            border-bottom: 2px solid var(--h1-border);
+            /* ☆ 수정: 변수 적용 */
+            padding-bottom: 10px;
+        }
 
-/* 2. 부제목 (TK4BL) - 비례 이동 */
-.app-title {
-    /* (기존) 폰트, 색상 등은 그대로 둠 */
-    color: var(--app-title-color); /* ☆ 수정: 변수 적용 */
-    font-size: 1.4em;
-    font-weight: 500;
-    margin-bottom: 0;
+        /* 2. 부제목 (TK4BL) - 비례 이동 */
+        .app-title {
+            /* (기존) 폰트, 색상 등은 그대로 둠 */
+            color: var(--app-title-color);
+            /* ☆ 수정: 변수 적용 */
+            font-size: 1.4em;
+            font-weight: 500;
+            margin-bottom: 0;
 
-    /* --- [핵심] --- */
-    position: absolute;
-    left: 50%; /* 1. 일단 화면 중앙에 위치 */
+            /* --- [핵심] --- */
+            position: absolute;
+            left: 50%;
+            /* 1. 일단 화면 중앙에 위치 */
 
-    /* 2. 비례 이동 계산 */
-    /* 580px보다 넓으면 0, 좁아지면 좁아진 만큼 왼쪽으로 밀어냄 */
-    /* (580px - 100vw) * 0.5
+            /* 2. 비례 이동 계산 */
+            /* 580px보다 넓으면 0, 좁아지면 좁아진 만큼 왼쪽으로 밀어냄 */
+            /* (580px - 100vw) * 0.5
        -> 580px보다 100px 좁아지면(480vw), (100px * 0.5) = 50px 왼쪽으로 민다
     */
-    --push-amount: max(0px, (580px - 100vw) * 0.5);
-    transform: translateX( calc( -50% - var(--push-amount) ) );
-}
+            --push-amount: max(0px, (580px - 100vw) * 0.5);
+            transform: translateX(calc(-50% - var(--push-amount)));
+        }
 
-.update-date {
+        .update-date {
 
-    /* (기존) 폰트, 색상 등은 그대로 둠 */
+            /* (기존) 폰트, 색상 등은 그대로 둠 */
 
-    color: var(--date-color); /* ☆ 수정: 변수 적용 */
-    font-size: 0.9em;
-    margin-bottom: 0;
+            color: var(--date-color);
+            /* ☆ 수정: 변수 적용 */
+            font-size: 0.9em;
+            margin-bottom: 0;
 
-    /* [수정] 우측에 절대 위치로 고정 */
-    position: absolute;
-    right: 0;
-    top: 0;
+            /* [수정] 우측에 절대 위치로 고정 */
+            position: absolute;
+            right: 0;
+            top: 0;
 
-}
+        }
 
 
         .section {
             margin-bottom: 30px;
             padding: 20px;
-            background-color: var(--section-bg); /* ☆ 수정: 변수 적용 */
+            background-color: var(--section-bg);
+            /* ☆ 수정: 변수 적용 */
             border-radius: 8px;
-            border-left: 4px solid var(--section-border); /* ☆ 수정: 변수 적용 */
+            border-left: 4px solid var(--section-border);
+            /* ☆ 수정: 변수 적용 */
         }
 
         .section h2 {
-            color: var(--app-title-color); /* ☆ 수정: 변수 적용 (app-title과 동일색) */
+            color: var(--app-title-color);
+            /* ☆ 수정: 변수 적용 (app-title과 동일색) */
             font-size: 1.4em;
             margin-bottom: 15px;
             font-weight: bold;
         }
 
         .section h3 {
-             /* 영문판 h3 태그를 위해 스타일 추가 */
+            /* 영문판 h3 태그를 위해 스타일 추가 */
             font-size: 1.1em;
             font-weight: bold;
             margin-top: 15px;
             margin-bottom: 10px;
-            color: var(--h3-color); /* ☆ 수정: 변수 적용 */
+            color: var(--h3-color);
+            /* ☆ 수정: 변수 적용 */
         }
 
         .section p {
@@ -233,7 +289,8 @@ h1 {
             font-size: 1em;
         }
 
-        .section ul, .section ol {
+        .section ul,
+        .section ol {
             margin-left: 20px;
             margin-bottom: 10px;
         }
@@ -244,22 +301,26 @@ h1 {
         }
 
         .important-notice {
-            background-color: var(--important-bg); /* ☆ 수정: 변수 적용 */
-            border: 1px solid var(--important-border); /* ☆ 수정: 변수 적용 */
+            background-color: var(--important-bg);
+            /* ☆ 수정: 변수 적용 */
+            border: 1px solid var(--important-border);
+            /* ☆ 수정: 변수 적용 */
             border-radius: 8px;
             padding: 20px;
             margin-top: 30px;
         }
 
         .important-notice h3 {
-            color: var(--important-text); /* ☆ 수정: 변수 적용 */
+            color: var(--important-text);
+            /* ☆ 수정: 변수 적용 */
             font-size: 1.2em;
             margin-bottom: 10px;
             font-weight: bold;
         }
 
         .important-notice li {
-            color: var(--important-text); /* ☆ 수정: 변수 적용 */
+            color: var(--important-text);
+            /* ☆ 수정: 변수 적용 */
             margin-bottom: 5px;
         }
 
@@ -272,17 +333,32 @@ h1 {
                 padding: 20px;
             }
 
-             /* --- START: 모바일 언어 선택기 --- */
+            /* --- START: 모바일 언어 선택기 --- */
             .lang-selector-container {
                 position: fixed;
                 top: 20px;
                 right: 20px;
             }
+
             #lang-selector {
                 padding: 5px;
                 font-size: 0.8em;
             }
-             /* --- END: 모바일 언어 선택기 --- */
+
+            /* --- END: 모바일 언어 선택기 --- */
+
+            /* --- START: 모바일 뒤로가기 버튼 --- */
+            .nav-back-container {
+                top: 20px;
+                left: 20px;
+            }
+
+            #btn-back {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+
+            /* --- END: 모바일 뒤로가기 버튼 --- */
 
             h1 {
                 font-size: 1.8em;
@@ -313,19 +389,29 @@ h1 {
                 box-shadow: none;
                 padding: 20px;
             }
-            /* 인쇄 시 언어 선택기 숨기기 */
-            .lang-selector-container {
+
+            /* 인쇄 시 언어 선택기 및 뒤로가기 버튼 숨기기 */
+            .lang-selector-container,
+            .nav-back-container {
                 display: none;
             }
         }
 
         /* ☆ 삭제: 기존 하단의 @media (prefers-color-scheme: dark) 블록 전체 삭제 */
         /* (상단에 변수 방식으로 통합했으므로 불필요) */
-
     </style>
 </head>
+
 <body>
     <div class="container">
+
+        <!-- 뒤로가기 버튼 -->
+        <div class="nav-back-container">
+            <button id="btn-back" onclick="location.href='/'" aria-label="Back to Home">
+                <span class="back-icon">←</span>
+                <span id="back-text">Back</span>
+            </button>
+        </div>
 
         <div class="lang-selector-container">
             <select id="lang-selector" aria-label="Language Selector">
@@ -355,18 +441,21 @@ h1 {
                 <h3>AVC (App Volume Control)</h3>
                 <ul>
                     <li>Providing App Features: Storing and applying settings for per-app volume control.</li>
-                    <li>Error Resolution: Collecting error reports and diagnostic information to improve app stability.</li>
+                    <li>Error Resolution: Collecting error reports and diagnostic information to improve app stability.
+                    </li>
                     <li>Service Improvement: Enhancing service quality through user feedback.</li>
                 </ul>
 
                 <h3>Knitting</h3>
                 <ul>
-                    <li>Providing App Features: Storing and managing yarn inventory data including photos, specifications, and usage records.</li>
+                    <li>Providing App Features: Storing and managing yarn inventory data including photos,
+                        specifications, and usage records.</li>
                     <li>Photo Management: Capturing, storing, and editing yarn photos for inventory purposes.</li>
-                    <li>Error Resolution: Collecting error reports and diagnostic information to improve app stability.</li>
+                    <li>Error Resolution: Collecting error reports and diagnostic information to improve app stability.
+                    </li>
                     <li>Service Improvement: Enhancing service quality through user feedback.</li>
                 </ul>
-                </div>
+            </div>
 
             <div class="section">
                 <h2>2. Items of Personal Information Collected</h2>
@@ -395,22 +484,30 @@ h1 {
                         <ul>
                             <li><strong>Accessibility Service (AccessibilityService)</strong>
                                 <ul>
-                                    <li><strong>Purpose:</strong> Used to detect app activity in real-time to use the 'per-app volume control' feature.</li>
+                                    <li><strong>Purpose:</strong> Used to detect app activity in real-time to use the
+                                        'per-app volume control' feature.</li>
                                     <li>This information is processed only on the device.</li>
-                                    <li>However, when using the 'error reporting' feature, with user consent, the active app name and package name detected and collected through this permission are transmitted to the developer.</li>
+                                    <li>However, when using the 'error reporting' feature, with user consent, the active
+                                        app name and package name detected and collected through this permission are
+                                        transmitted to the developer.</li>
                                 </ul>
                             </li>
                             <li><strong>Installed Apps List (QUERY_ALL_PACKAGES)</strong>
                                 <ul>
-                                    <li><strong>Purpose:</strong> Due to app functionality characteristics, the list of installed apps is collected in advance to prevent device overheating and battery consumption.</li>
+                                    <li><strong>Purpose:</strong> Due to app functionality characteristics, the list of
+                                        installed apps is collected in advance to prevent device overheating and battery
+                                        consumption.</li>
                                     <li>This information is processed only on the device.</li>
                                 </ul>
                             </li>
                             <li><strong>Display Over Other Apps (SYSTEM_ALERT_WINDOW)</strong>
                                 <ul>
-                                    <li><strong>Purpose:</strong> Used to display app names and volume values on the screen when active app detection or volume changes occur.</li>
+                                    <li><strong>Purpose:</strong> Used to display app names and volume values on the
+                                        screen when active app detection or volume changes occur.</li>
                                     <li>This information is processed only on the device.</li>
-                                    <li>However, when using the 'error reporting' feature, with user consent, app names and volume values from the information displayed through this permission are transmitted to the developer.</li>
+                                    <li>However, when using the 'error reporting' feature, with user consent, app names
+                                        and volume values from the information displayed through this permission are
+                                        transmitted to the developer.</li>
                                 </ul>
                             </li>
                         </ul>
@@ -419,7 +516,8 @@ h1 {
 
                 <h3>Knitting</h3>
                 <ul>
-                    <li>Yarn Inventory Data: Yarn specifications, photos, usage records, and inventory information entered by the user.</li>
+                    <li>Yarn Inventory Data: Yarn specifications, photos, usage records, and inventory information
+                        entered by the user.</li>
                     <li>Error Logs: Information on errors and exceptions occurring during app execution.</li>
                     <li>Device Information: App version, device model, Android version, etc.</li>
                     <li>User Feedback: Additional explanatory content entered by the user when reporting an error.</li>
@@ -427,14 +525,15 @@ h1 {
                         <ul>
                             <li><strong>Camera (CAMERA)</strong>
                                 <ul>
-                                    <li><strong>Purpose:</strong> Used to capture photos of yarn for inventory management and record-keeping.</li>
+                                    <li><strong>Purpose:</strong> Used to capture photos of yarn for inventory
+                                        management and record-keeping.</li>
                                     <li>This information is processed only on the device.</li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                 </ul>
-                </div>
+            </div>
 
             <div class="section">
                 <h2>3. Method of Collection</h2>
@@ -488,12 +587,15 @@ h1 {
 
             <div class="section">
                 <h2>8. Changes to the Privacy Policy</h2>
-                <p>In the event of changes to the Privacy Policy, the changes will be announced through in-app notifications and the Privacy Policy itself.</p>
+                <p>In the event of changes to the Privacy Policy, the changes will be announced through in-app
+                    notifications and the Privacy Policy itself.</p>
             </div>
 
             <div class="section">
                 <h2>9. Personal Information Protection Officer & Inquiries</h2>
-                <p>TK4BL has designated a Personal Information Protection Officer to oversee tasks related to personal information processing and to handle complaints and remedy damages for data subjects. If you have any inquiries, please contact us below.</p>
+                <p>TK4BL has designated a Personal Information Protection Officer to oversee tasks related to personal
+                    information processing and to handle complaints and remedy damages for data subjects. If you have
+                    any inquiries, please contact us below.</p>
                 <ul>
                     <li><strong>Personal Information Protection Officer:</strong> TK4BL</li>
                     <li><strong>Email:</strong> tkforbl@gmail.com</li>
@@ -505,9 +607,12 @@ h1 {
             <div class="important-notice">
                 <h3>Important Notice</h3>
                 <ul>
-                    <li>This Privacy Policy governs the collection and use of personal information for TK4BL apps (AVC and Knitting).</li>
-                    <li>By agreeing to this policy, the user is deemed to have consented to the collection and use of personal information.</li>
-                    <li>Please feel free to contact us at any time with inquiries related to personal information processing.</li>
+                    <li>This Privacy Policy governs the collection and use of personal information for TK4BL apps (AVC
+                        and Knitting).</li>
+                    <li>By agreeing to this policy, the user is deemed to have consented to the collection and use of
+                        personal information.</li>
+                    <li>Please feel free to contact us at any time with inquiries related to personal information
+                        processing.</li>
                 </ul>
             </div>
         </div>
@@ -538,7 +643,7 @@ h1 {
                     <li>서비스 개선: 사용자 의견을 통한 서비스 품질 향상</li>
                 </ul>
 
-                </div>
+            </div>
 
             <div class="section">
                 <h2>2. 수집하는 개인정보 항목</h2>
@@ -607,7 +712,7 @@ h1 {
                     </li>
                 </ul>
 
-                </div>
+            </div>
 
             <div class="section">
                 <h2>3. 개인정보 수집 방법</h2>
@@ -666,7 +771,8 @@ h1 {
 
             <div class="section">
                 <h2>9. 개인정보 보호책임자 및 문의처</h2>
-                <p>개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다. 문의사항이 있으시면 아래로 연락해 주시기 바랍니다.</p>
+                <p>개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다. 문의사항이
+                    있으시면 아래로 연락해 주시기 바랍니다.</p>
                 <ul>
                     <li><strong>개인정보 보호책임자:</strong> TK4BL</li>
                     <li><strong>연락처(이메일):</strong> tkforbl@gmail.com</li>
@@ -684,103 +790,109 @@ h1 {
                 </ul>
             </div>
         </div>
-<script>
-        // 자주 사용하는 HTML 요소들을 미리 찾아둡니다.
-        const langSelector = document.getElementById('lang-selector');
-        const themeSelector = document.getElementById('theme-selector'); // ☆ 추가
-        const langEn = document.getElementById('lang-en');
-        const langKo = document.getElementById('lang-ko');
-        const htmlTag = document.getElementsByTagName('html')[0];
+        <script>
+            // 자주 사용하는 HTML 요소들을 미리 찾아둡니다.
+            const langSelector = document.getElementById('lang-selector');
+            const themeSelector = document.getElementById('theme-selector'); // ☆ 추가
+            const langEn = document.getElementById('lang-en');
+            const langKo = document.getElementById('lang-ko');
+            const htmlTag = document.getElementsByTagName('html')[0];
 
-        /**
-         * 선택된 언어에 맞게 화면을 변경하는 함수
-         * @param {string} lang - 'en' 또는 'ko'
-         */
-        function setLanguage(lang) {
-            if (lang === 'ko') {
-                // 1. 한국어 콘텐츠를 보여주고 영어를 숨깁니다.
-                langEn.style.display = 'none';
-                langKo.style.display = 'block';
-                // 2. <html> 태그의 언어 속성을 'ko'로 변경합니다.
-                htmlTag.lang = 'ko';
-                // 3. 드롭다운 선택 값을 'ko'로 맞춥니다.
-                langSelector.value = 'ko';
-            } else {
-                // 1. (기본값) 영어 콘텐츠를 보여주고 한국어를 숨깁니다.
-                langEn.style.display = 'block';
-                langKo.style.display = 'none';
-                // 2. <html> 태그의 언어 속성을 'en'으로 변경합니다.
-                htmlTag.lang = 'en';
-                // 3. 드롭다운 선택 값을 'en'으로 맞춥니다.
-                langSelector.value = 'en';
-            }
-        }
-
-        // ☆ 추가: 테마 변경 함수
-        function setTheme(theme) {
-            // 1. body에 data-theme 속성을 설정하거나 제거합니다.
-            if (theme === 'system') {
-                document.body.removeAttribute('data-theme'); // 시스템 설정(미디어 쿼리) 따름
-            } else {
-                document.body.setAttribute('data-theme', theme); // 강제 모드 적용
-            }
-            // 2. 선택기 값을 동기화합니다.
-            themeSelector.value = theme;
-        }
-
-        // --- 1. 사용자가 드롭다운 메뉴를 변경할 때 ---
-        langSelector.addEventListener('change', function() {
-            const selectedLang = this.value;
-            // ★ 중요: 사용자의 선택을 'sessionStorage'에 저장합니다.
-            sessionStorage.setItem('tk4blLang', selectedLang);
-            // 화면을 해당 언어로 변경합니다.
-            setLanguage(selectedLang);
-        });
-
-        // ☆ 추가: 테마 변경 이벤트 리스너
-        themeSelector.addEventListener('change', function() {
-            const selectedTheme = this.value;
-            // 테마 설정을 'sessionStorage'에 저장하여 홈페이지와 연동합니다.
-            sessionStorage.setItem('tk4blTheme', selectedTheme);
-            setTheme(selectedTheme);
-        });
-
-        /**
-         * 브라우저의 언어 설정을 감지하는 함수
-         * @returns {string} 'en' 또는 'ko'
-         */
-        function detectLanguage() {
-            const languages = navigator.languages || [navigator.language];
-            for (const lang of languages) {
-                if (lang.startsWith('ko')) {
-                    return 'ko';
+            /**
+             * 선택된 언어에 맞게 화면을 변경하는 함수
+             * @param {string} lang - 'en' 또는 'ko'
+             */
+            function setLanguage(lang) {
+                const backText = document.getElementById('back-text');
+                if (lang === 'ko') {
+                    // 1. 한국어 콘텐츠를 보여주고 영어를 숨깁니다.
+                    langEn.style.display = 'none';
+                    langKo.style.display = 'block';
+                    // 2. <html> 태그의 언어 속성을 'ko'로 변경합니다.
+                    htmlTag.lang = 'ko';
+                    // 3. 드롭다운 선택 값을 'ko'로 맞춥니다.
+                    langSelector.value = 'ko';
+                    // 4. 뒤로가기 버튼 텍스트 변경
+                    if (backText) backText.textContent = '뒤로가기';
+                } else {
+                    // 1. (기본값) 영어 콘텐츠를 보여주고 한국어를 숨깁니다.
+                    langEn.style.display = 'block';
+                    langKo.style.display = 'none';
+                    // 2. <html> 태그의 언어 속성을 'en'으로 변경합니다.
+                    htmlTag.lang = 'en';
+                    // 3. 드롭다운 선택 값을 'en'으로 맞춥니다.
+                    langSelector.value = 'en';
+                    // 4. 뒤로가기 버튼 텍스트 변경
+                    if (backText) backText.textContent = 'Back';
                 }
             }
-            return 'en'; // 기본값 영어
-        }
 
-        // ☆ 수정: 페이지가 보이거나(로드), 뒤로 가기로 돌아왔을 때 항상 실행되도록 변경
-        function applySettings() {
-            // 언어 설정 로드
-            const savedLang = sessionStorage.getItem('tk4blLang');
-            if (savedLang) {
-                setLanguage(savedLang);
-            } else {
-                const detectedLang = detectLanguage();
-                setLanguage(detectedLang);
+            // ☆ 추가: 테마 변경 함수
+            function setTheme(theme) {
+                // 1. body에 data-theme 속성을 설정하거나 제거합니다.
+                if (theme === 'system') {
+                    document.body.removeAttribute('data-theme'); // 시스템 설정(미디어 쿼리) 따름
+                } else {
+                    document.body.setAttribute('data-theme', theme); // 강제 모드 적용
+                }
+                // 2. 선택기 값을 동기화합니다.
+                themeSelector.value = theme;
             }
 
-            // ☆ 추가: 테마 설정 로드 (홈페이지와 연동)
-            const savedTheme = sessionStorage.getItem('tk4blTheme');
-            if (savedTheme) {
-                setTheme(savedTheme);
-            } else {
-                setTheme('system'); // 기본값
-            }
-        }
+            // --- 1. 사용자가 드롭다운 메뉴를 변경할 때 ---
+            langSelector.addEventListener('change', function () {
+                const selectedLang = this.value;
+                // ★ 중요: 사용자의 선택을 'sessionStorage'에 저장합니다.
+                sessionStorage.setItem('tk4blLang', selectedLang);
+                // 화면을 해당 언어로 변경합니다.
+                setLanguage(selectedLang);
+            });
 
-        // ☆ 추가: pageshow 이벤트에 연결 (뒤로 가기 시 설정 반영 필수)
-        window.addEventListener('pageshow', applySettings);
-    </script>
-    </body>
+            // ☆ 추가: 테마 변경 이벤트 리스너
+            themeSelector.addEventListener('change', function () {
+                const selectedTheme = this.value;
+                // 테마 설정을 'sessionStorage'에 저장하여 홈페이지와 연동합니다.
+                sessionStorage.setItem('tk4blTheme', selectedTheme);
+                setTheme(selectedTheme);
+            });
+
+            /**
+             * 브라우저의 언어 설정을 감지하는 함수
+             * @returns {string} 'en' 또는 'ko'
+             */
+            function detectLanguage() {
+                const languages = navigator.languages || [navigator.language];
+                for (const lang of languages) {
+                    if (lang.startsWith('ko')) {
+                        return 'ko';
+                    }
+                }
+                return 'en'; // 기본값 영어
+            }
+
+            // ☆ 수정: 페이지가 보이거나(로드), 뒤로 가기로 돌아왔을 때 항상 실행되도록 변경
+            function applySettings() {
+                // 언어 설정 로드
+                const savedLang = sessionStorage.getItem('tk4blLang');
+                if (savedLang) {
+                    setLanguage(savedLang);
+                } else {
+                    const detectedLang = detectLanguage();
+                    setLanguage(detectedLang);
+                }
+
+                // ☆ 추가: 테마 설정 로드 (홈페이지와 연동)
+                const savedTheme = sessionStorage.getItem('tk4blTheme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                } else {
+                    setTheme('system'); // 기본값
+                }
+            }
+
+            // ☆ 추가: pageshow 이벤트에 연결 (뒤로 가기 시 설정 반영 필수)
+            window.addEventListener('pageshow', applySettings);
+        </script>
+</body>
+
 </html>
