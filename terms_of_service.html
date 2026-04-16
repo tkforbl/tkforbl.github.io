@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - TK4BL</title>
+    <style>
+        /* 1. 기본값 (라이트 모드 기준) */
+        :root {
+            --bg-color: #cecece;
+            --card-bg: #e0e0e0;
+            --text-main: #000000;
+            --text-sub: #666666;
+            --accent: #0078d4;
+            --text-footer: #444444;
+            --input-border: #cccccc;
+            --container-bg: #e9ecef;
+            --section-bg: #f8f9fa;
+            --section-border: #3498db;
+            --h1-color: #2c3e50;
+            --h1-border: #3498db;
+            --app-title-color: #3498db;
+            --date-color: #7f8c8d;
+            --h3-color: #2c3e50;
+            --important-bg: #fff3cd;
+            --important-border: #ffeaa7;
+            --important-text: #856404;
+        }
+
+        /* 2. 다크 모드 (시스템 감지) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --card-bg: #1e1e1e;
+                --text-main: #aaaaaa;
+                --text-sub: #aaaaaa;
+                --accent: #0078d4;
+                --text-footer: #888888;
+                --input-border: #555555;
+                --container-bg: #1e1e1e;
+                --section-bg: #2c2c2c;
+                --section-border: #4a90e2;
+                --h1-color: #aaaaaa;
+                --h1-border: #4a90e2;
+                --app-title-color: #4a90e2;
+                --date-color: #888;
+                --h3-color: #aaaaaa;
+                --important-bg: #4d441f;
+                --important-border: #9e8c4b;
+                --important-text: #ffeaa7;
+            }
+        }
+
+        /* 3. 수동 라이트 모드 (강제) */
+        [data-theme="light"] {
+            --bg-color: #cecece;
+            --card-bg: #e0e0e0;
+            --text-main: #000000;
+            --text-sub: #666666;
+            --accent: #0078d4;
+            --text-footer: #444444;
+            --input-border: #cccccc;
+            --container-bg: #e9ecef;
+            --section-bg: #f8f9fa;
+            --section-border: #3498db;
+            --h1-color: #2c3e50;
+            --h1-border: #3498db;
+            --app-title-color: #3498db;
+            --date-color: #7f8c8d;
+            --h3-color: #2c3e50;
+            --important-bg: #fff3cd;
+            --important-border: #ffeaa7;
+            --important-text: #856404;
+        }
+
+        /* 4. 수동 다크 모드 (강제) */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #aaaaaa;
+            --text-sub: #aaaaaa;
+            --accent: #0078d4;
+            --text-footer: #888888;
+            --input-border: #555555;
+            --container-bg: #1e1e1e;
+            --section-bg: #2c2c2c;
+            --section-border: #4a90e2;
+            --h1-color: #aaaaaa;
+            --h1-border: #4a90e2;
+            --app-title-color: #4a90e2;
+            --date-color: #888;
+            --h3-color: #aaaaaa;
+            --important-bg: #4d441f;
+            --important-border: #9e8c4b;
+            --important-text: #ffeaa7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Malgun Gothic', 'Apple Gothic', 'Noto Sans CJK KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .container {
+            position: relative;
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .lang-selector-container {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+
+        #lang-selector,
+        #theme-selector {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .nav-back-container {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 10;
+        }
+
+        #btn-back {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--input-border);
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        #btn-back:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: rgba(0, 120, 212, 0.1);
+        }
+
+        .back-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .header-meta {
+            position: relative;
+            height: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--h1-color);
+            font-size: 2.2em;
+            margin-bottom: 5px;
+            text-align: center;
+            border-bottom: 2px solid var(--h1-border);
+            padding-bottom: 10px;
+        }
+
+        .app-title {
+            color: var(--app-title-color);
+            font-size: 1.4em;
+            font-weight: 500;
+            margin-bottom: 0;
+            position: absolute;
+            left: 50%;
+            --push-amount: max(0px, (580px - 100vw) * 0.5);
+            transform: translateX(calc(-50% - var(--push-amount)));
+        }
+
+        .update-date {
+            color: var(--date-color);
+            font-size: 0.9em;
+            margin-bottom: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--section-bg);
+            border-radius: 8px;
+            border-left: 4px solid var(--section-border);
+        }
+
+        .section h2 {
+            color: var(--app-title-color);
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .section h3 {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: var(--h3-color);
+        }
+
+        .section p {
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .section ul,
+        .section ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .important-notice {
+            background-color: var(--important-bg);
+            border: 1px solid var(--important-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .important-notice h3 {
+            color: var(--important-text);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .important-notice li {
+            color: var(--important-text);
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .lang-selector-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+
+            #lang-selector {
+                padding: 5px;
+                font-size: 0.8em;
+            }
+
+            .nav-back-container {
+                top: 20px;
+                left: 20px;
+            }
+
+            #btn-back {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .app-title {
+                font-size: 1.2em;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .section h2 {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <div class="nav-back-container">
+            <button id="btn-back" onclick="location.href='/'" aria-label="Back to Home">
+                <span class="back-icon">←</span>
+                <span id="back-text">Back</span>
+            </button>
+        </div>
+
+        <div class="lang-selector-container">
+            <select id="lang-selector" aria-label="Language Selector">
+                <option value="ko" selected>Korean - 한국어</option>
+                <option value="en">English</option>
+            </select>
+
+            <select id="theme-selector" aria-label="Theme Selector">
+                <option value="system">System</option>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </div>
+
+        <!-- 한국어 약관 -->
+        <div id="lang-ko" style="display: block;">
+            <h1>이용약관</h1>
+
+            <div class="header-meta">
+                <h2 class="app-title">TK4BL</h2>
+                <p class="update-date">시행일: 2026. 04. 16.</p>
+            </div>
+
+            <div class="section">
+                <h2>제1조 (목적)</h2>
+                <p>본 약관은 TK4BL(이하 "회사")이 제공하는 모바일 앱 서비스(이하 "서비스")의 이용과 관련하여 회사와 사용자(이하 "회원") 간의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
+            </div>
+
+            <div class="section">
+                <h2>제2조 (용어의 정의)</h2>
+                <ol>
+                    <li>"서비스"란 회사가 제공하는 모든 기능 및 어플리케이션(AVC, Knitting 등)을 의미합니다.</li>
+                    <li>"회원"이란 본 약관에 동의하고 서비스를 이용하는 자를 의미합니다.</li>
+                    <li>"프리미엄 시간"이란 결제 또는 광고 시청 등을 통해 획득하여 앱 내 부가 기능을 사용할 수 있게 하는 재화를 의미합니다.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>제3조 (약관의 효력 및 변경)</h2>
+                <ol>
+                    <li>회사는 본 약관의 내용을 서비스 내 화면에 게시하거나 기타의 방법으로 회원에게 공지함으로써 효력이 발생합니다.</li>
+                    <li>회사는 관련 법령을 위배하지 않는 범위 내에서 약관을 변경할 수 있으며, 변경된 약관은 시행일 7일 전부터 공지합니다. 단, 회원에게 불리한 변경의 경우 30일 전부터 공지합니다.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>제4조 (서비스의 제공 및 중단)</h2>
+                <ol>
+                    <li>회사는 연중무휴 1일 24시간 서비스 제공을 원칙으로 합니다.</li>
+                    <li>단, 시스템 정기점검, 서버 증설 및 교체, 통신망의 장애 등 운영상 불가피한 사유가 있는 경우 서비스의 전부 또는 일부를 일시적으로 중단할 수 있습니다.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>제5조 (결제 및 환불)</h2>
+                <p>회원은 회사에서 제공하는 유료 서비스를 구글 플레이 인앱 결제를 통해 이용할 수 있으며, 환불 등은 플랫폼 사업자의 정책 및 회사의 약관에 따릅니다.</p>
+            </div>
+
+            <div class="important-notice">
+                <h3>중요: 환불 및 결제 관련 규정</h3>
+                <ul>
+                    <li><strong>[연간 구독 환불]:</strong> 연간 구독 상품은 결제 후 중도 해지 시, 잔여 기간에 대한 일할 계산 및 부분 환불을 제공하지 않습니다. 혜택은 결제 주기 만료일까지 유지됩니다.</li>
+                    <li><strong>[시간 누적 시스템]:</strong> 앱 내의 '프리미엄 시간'은 결제 및 광고 시청을 통해 획득하는 재화이며, 환불 시 결제분만큼의 시간이 차감됩니다. 이 과정에서 이미 소비한 시간으로 인해 잔여 시간이 마이너스가 될 경우 즉시 혜택이 종료됩니다.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>제6조 (계정 제한 및 권리)</h2>
+                <p>회사는 회원이 서비스의 정상적 운영을 방해하거나 관련 법령, 본 약관을 위반하는 경우 서비스 이용을 제한할 수 있습니다.</p>
+            </div>
+
+            <div class="important-notice">
+                <h3>중요: 계정 제재 및 차단(Ban)</h3>
+                <ul>
+                    <li><strong>[부정 행위 및 차단]:</strong> 사용자가 구글 정책을 악용하여 상습적인 환불을 반복하거나, 비정상적인 방법으로 프리미엄 시간(재화)을 획득할 경우, 회사는 사전 통보 없이 해당 계정의 서비스 이용을 영구적으로 제한(Ban)할 수 있습니다.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>제7조 (면책 조항)</h2>
+                <ol>
+                    <li>회사는 천재지변 등 불가항력으로 인하여 서비스를 제공할 수 없는 경우 서비스 제공에 대한 책임을 면합니다.</li>
+                    <li>회사는 회원의 귀책사유로 인한 서비스 이용 장애에 대하여 책임을 지지 않습니다.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>제8조 (준거법 및 재판관할)</h2>
+                <p>본 약관과 관련하여 회사와 회원 간 발생한 분쟁에 대하여는 대한민국 법을 준거법으로 하며, 관할 법원은 민사소송법이 정하는 바에 따릅니다.</p>
+            </div>
+
+        </div>
+
+        <!-- English Terms -->
+        <div id="lang-en" style="display: none;">
+            <h1>Terms of Service</h1>
+
+            <div class="header-meta">
+                <h2 class="app-title">TK4BL</h2>
+                <p class="update-date">Effective Date: April 16, 2026</p>
+            </div>
+
+            <div class="section">
+                <h2>1. Purpose</h2>
+                <p>The purpose of these Terms of Service is to define the rights, obligations, and responsibilities between TK4BL (hereinafter referred to as the "Company") and the user (hereinafter referred to as the "Member") in relation to the use of mobile application services (hereinafter referred to as the "Service") provided by the Company.</p>
+            </div>
+
+            <div class="section">
+                <h2>2. Definitions</h2>
+                <ol>
+                    <li>"Service" refers to all functions and applications (such as AVC, Knitting, etc.) provided by the Company.</li>
+                    <li>"Member" refers to a person who agrees to these Terms and uses the Service.</li>
+                    <li>"Premium Time" refers to an in-app currency acquired through purchases or ad viewing, enabling the use of premium features.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>3. Effect and Amendment of Terms</h2>
+                <ol>
+                    <li>These Terms become effective when the Company posts them on the Service screen or notifies the Members through other means.</li>
+                    <li>The Company may amend these Terms to the extent that they do not violate relevant laws. Amended Terms will be notified 7 days prior to the effective date. For changes unfavorable to members, a 30-day prior notice will be given.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>4. Provision and Suspension of Service</h2>
+                <ol>
+                    <li>As a rule, the Service is provided 24 hours a day, 365 days a year.</li>
+                    <li>However, the Company may temporarily suspend the Service wholly or partially due to operational needs such as system maintenance, server expansion, or network failures.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>5. Payment and Refunds</h2>
+                <p>Members may use paid services provided by the Company through Google Play in-app purchases. Refunds are subject to the platform operator's policies and the Company's terms.</p>
+            </div>
+
+            <div class="important-notice">
+                <h3>Important: Refund & Payment Regulations</h3>
+                <ul>
+                    <li><strong>[Annual Subscription Refund]:</strong> For annual subscription products, prorated refunds or partial refunds for the remaining period are not provided in case of cancellation during the subscription period. The benefits will be maintained until the end of the billing cycle.</li>
+                    <li><strong>[Time Accumulation System]:</strong> The 'Premium Time' within the app is a currency obtained through purchases and ad viewing. In the event of a refund, the time corresponding to the payment amount will be deducted. If the remaining time becomes negative due to already consumed time in this process, the benefits will be terminated immediately.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>6. Account Restrictions and Rights</h2>
+                <p>The Company may restrict Service usage if a Member interferes with the normal operation of the Service, violates relevant laws, or breaches these Terms.</p>
+            </div>
+
+            <div class="important-notice">
+                <h3>Important: Account Fraud & Ban</h3>
+                <ul>
+                    <li><strong>[Fraudulent Activity & Account Ban]:</strong> If a user repeatedly abuses Google's policy to obtain habitual refunds or acquires premium time (currency) through abnormal methods, the Company may permanently ban the account from using the Service without prior notice.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>7. Exemption from Liability</h2>
+                <ol>
+                    <li>The Company shall be exempt from responsibility for providing the Service if it is unable to do so due to natural disasters or force majeure.</li>
+                    <li>The Company is not responsible for any hindrance to Service usage caused by the Member's fault.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>8. Governing Law and Jurisdiction</h2>
+                <p>Disputes arising between the Company and Members in relation to these Terms shall be governed by the laws of the Republic of Korea, and the competent court shall be determined by civil procedure laws.</p>
+            </div>
+        </div>
+
+        <script>
+            // 자주 사용하는 HTML 요소들을 미리 찾아둡니다.
+            const langSelector = document.getElementById('lang-selector');
+            const themeSelector = document.getElementById('theme-selector'); // ☆ 추가
+            const langEn = document.getElementById('lang-en');
+            const langKo = document.getElementById('lang-ko');
+            const htmlTag = document.getElementsByTagName('html')[0];
+
+            /**
+             * 선택된 언어에 맞게 화면을 변경하는 함수
+             * @param {string} lang - 'en' 또는 'ko'
+             */
+            function setLanguage(lang) {
+                const backText = document.getElementById('back-text');
+                if (lang === 'ko') {
+                    // 1. 한국어 콘텐츠를 보여주고 영어를 숨깁니다.
+                    langEn.style.display = 'none';
+                    langKo.style.display = 'block';
+                    // 2. <html> 태그의 언어 속성을 'ko'로 변경합니다.
+                    htmlTag.lang = 'ko';
+                    // 3. 드롭다운 선택 값을 'ko'로 맞춥니다.
+                    langSelector.value = 'ko';
+                    // 4. 뒤로가기 버튼 텍스트 변경
+                    if (backText) backText.textContent = '뒤로가기';
+                } else {
+                    // 1. (기본값) 영어 콘텐츠를 보여주고 한국어를 숨깁니다.
+                    langEn.style.display = 'block';
+                    langKo.style.display = 'none';
+                    // 2. <html> 태그의 언어 속성을 'en'으로 변경합니다.
+                    htmlTag.lang = 'en';
+                    // 3. 드롭다운 선택 값을 'en'으로 맞춥니다.
+                    langSelector.value = 'en';
+                    // 4. 뒤로가기 버튼 텍스트 변경
+                    if (backText) backText.textContent = 'Back';
+                }
+            }
+
+            // ☆ 추가: 테마 변경 함수
+            function setTheme(theme) {
+                // 1. body에 data-theme 속성을 설정하거나 제거합니다.
+                if (theme === 'system') {
+                    document.body.removeAttribute('data-theme'); // 시스템 설정(미디어 쿼리) 따름
+                } else {
+                    document.body.setAttribute('data-theme', theme); // 강제 모드 적용
+                }
+                // 2. 선택기 값을 동기화합니다.
+                themeSelector.value = theme;
+            }
+
+            // --- 1. 사용자가 드롭다운 메뉴를 변경할 때 ---
+            langSelector.addEventListener('change', function () {
+                const selectedLang = this.value;
+                // ★ 중요: 사용자의 선택을 'sessionStorage'에 저장합니다.
+                sessionStorage.setItem('tk4blLang', selectedLang);
+                // 화면을 해당 언어로 변경합니다.
+                setLanguage(selectedLang);
+            });
+
+            // ☆ 추가: 테마 변경 이벤트 리스너
+            themeSelector.addEventListener('change', function () {
+                const selectedTheme = this.value;
+                // 테마 설정을 'sessionStorage'에 저장하여 홈페이지와 연동합니다.
+                sessionStorage.setItem('tk4blTheme', selectedTheme);
+                setTheme(selectedTheme);
+            });
+
+            /**
+             * 브라우저의 언어 설정을 감지하는 함수
+             * @returns {string} 'en' 또는 'ko'
+             */
+            function detectLanguage() {
+                const languages = navigator.languages || [navigator.language];
+                for (const lang of languages) {
+                    if (lang.startsWith('ko')) {
+                        return 'ko';
+                    }
+                }
+                return 'en'; // 기본값 영어
+            }
+
+            // ☆ 수정: 페이지가 보이거나(로드), 뒤로 가기로 돌아왔을 때 항상 실행되도록 변경
+            function applySettings() {
+                // 언어 설정 로드
+                const savedLang = sessionStorage.getItem('tk4blLang');
+                if (savedLang) {
+                    setLanguage(savedLang);
+                } else {
+                    const detectedLang = detectLanguage();
+                    setLanguage(detectedLang);
+                }
+
+                // ☆ 추가: 테마 설정 로드 (홈페이지와 연동)
+                const savedTheme = sessionStorage.getItem('tk4blTheme');
+                if (savedTheme) {
+                    setTheme(savedTheme);
+                } else {
+                    setTheme('system'); // 기본값
+                }
+            }
+
+            // ☆ 추가: pageshow 이벤트에 연결 (뒤로 가기 시 설정 반영 필수)
+            window.addEventListener('pageshow', applySettings);
+        </script>
+    </div>
+</body>
+
+</html>

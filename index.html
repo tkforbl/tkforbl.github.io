@@ -237,7 +237,8 @@
         /* 제품 그리드 섹션 */
         .products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+            justify-content: center;
             gap: 30px;
             max-width: 1000px;
             width: 90%;
@@ -266,6 +267,7 @@
             margin: 0 0 15px 0;
             color: var(--accent);
             text-align: center;
+            line-height: 1.0;
         }
         .card p {
             font-size: 0.95rem;
@@ -275,7 +277,7 @@
             padding-top: 1.5em;
         }
         .card small {
-            font-size: 0.8rem;
+            font-size: 1rem;
         }
         .arrow {
             margin-top: 0;
@@ -395,34 +397,26 @@
         <div class="slogan" data-key="slogan">Designing Comfort</div>
     </header>
 
-    <section class="products">
-        <div class="card">
+        <section class="products">
+        <div class="card" onclick="window.open('https://play.google.com/store/apps/details?id=com.tkforbl.avc', '_blank')" style="cursor: pointer;">
             <div>
-                <h3 data-key="avc-title">App Volume Control</h3>
+                <h3 data-key="avc-title">AVCT<br><small>(App Volume Control TK4BL)</small></h3>
                 <p data-key="avc-desc">Control app volumes freely.<br>Essential Android volume manager.</p>
             </div>
-            <div class="arrow" data-key="coming-soon">Coming Soon &rarr;</div>
+            <a class="arrow" data-key="coming-soon" href="https://play.google.com/store/apps/details?id=com.tkforbl.avc" target="_blank" style="text-decoration: none; display: block;">Public Beta ></a>
         </div>
 
-        <div class="card">
+        <div class="card" onclick="window.open('https://play.google.com/store/apps/details?id=com.tkforbl.knitting', '_blank')" style="cursor: pointer;">
             <div>
-                <h3 data-key="knitting-title">Knitting</h3>
+                <h3 data-key="knitting-title">Knit Kit</h3>
                 <p data-key="knitting-desc">Manage knitting patterns and records.<br>Record your hobbies more enjoyably.</p>
             </div>
-            <div class="arrow" data-key="coming-soon">Coming Soon &rarr;</div>
-        </div>
-
-        <div class="card">
-            <div>
-                <h3 data-key="dev-helper-title">Dev Helper</h3>
-                <p data-key="dev-helper-desc">Automation utilities for Android developers.<br>Wireless debugging port detection and environment setup automation tools.</p>
-            </div>
-            <div class="arrow" data-key="coming-soon">Coming Soon &rarr;</div>
+            <a class="arrow" data-key="coming-soon" href="https://play.google.com/store/apps/details?id=com.tkforbl.knitting" target="_blank" style="text-decoration: none; display: block;">Public Beta ></a>
         </div>
     </section>
 
     <footer data-key="footer">
-        &copy; 2025 TK4BL. All rights reserved.
+        &copy; 2026 TK4BL. All rights reserved.
     </footer>
 
     <script>
@@ -552,18 +546,17 @@
                 "cat-products": "Products",
                 "cat-community": "Community",
                 "cat-support": "Support",
-                "avc-title": "App Volume Control",
+                "avc-title": "AVCT<br><small>(App Volume Control TK4BL)</small>",
+                "avc-title": "AVCT<br><small>(App Volume Control TK4BL)</small>",
                 "avc-desc": "Per-app volume control for Android<br><br><center>『 Auto 』</center>- Remembers per-app volumes<br>- Applies volumes when app is activated<br><br><small>* Limitation: It is not possible to set different volumes for apps playing simultaneously due to Android's design limitations.</small>",
-                "knitting-title": "Knitting",
-                "knitting-desc": "Record knitting and yarn inventory.<br>Manage efficiently.",
-                "dev-helper-title": "Dev Helper",
-                "dev-helper-desc": "Optimize your development environment<br><br><center>『 Auto 』</center>- Detect Android wireless debugging ports<br>- Modify/save ports in configuration files",
-                "coming-soon": "Coming Soon",
+                "knitting-title": "Knit Kit",
+                "knitting-desc": "<br>Knitting Tools - Most convenient app on Earth<br><br>- Track yarn inventory and project status<br>- Manage efficiently with tools<br>- Tools: Pattern pen, Counter, Stopwatch, etc.",
+                "coming-soon": "Public Beta >",
                 "lang-en": "English",
                 "lang-ko": "Korean - 한국어",
                 "login-btn": "Sign in",
                 "logout-btn": "Sign out",
-                footer: "&copy; 2025 TK4BL. All rights reserved. | <a href=\"privacy-policy.html\">Privacy Policy</a>"
+                footer: "&copy; 2026 TK4BL. All rights reserved. | <a href=\"terms_of_service.html\">Terms of Service</a> | <a href=\"privacy-policy.html\">Privacy Policy</a>"
             },
             ko: {
                 slogan: "편안함을 설계합니다",
@@ -571,18 +564,16 @@
                 "cat-products": "제품",
                 "cat-community": "커뮤니티",
                 "cat-support": "고객지원",
-                "avc-title": "App Volume Control",
+                "avc-title": "AVCT<br><small>(App Volume Control TK4BL)</small>",
                 "avc-desc": "안드로이드 앱별 볼륨 조절<br><br><center>『 자동 』</center>- 앱별 볼륨 기억<br>- 앱 활성 시 볼륨 적용<br><br><small>* 제한 사항: 동시에 재생하는 앱별 볼륨을 다르게 설정하는 것은 안드로이드 설계 구조상 불가능.</small>",
-                "knitting-title": "Knitting",
-                "knitting-desc": "뜨개질, 실 재고를 기록하세요.<br>효율적으로 관리하세요.",
-                "dev-helper-title": "Dev Helper",
-                "dev-helper-desc": "개발 환경을 최적화하세요<br><br><center>『 자동 』</center>- 안드로이드 무선 디버깅 포트 감지<br>- 설정 파일의 포트 수정/저장",
-                "coming-soon": "Coming Soon",
+                "knitting-title": "Knit Kit",
+                "knitting-desc": "<br>뜨개질 도구 - 지구에서 가장 편리한 앱<br><br>- 실 재고와 프로젝트 현황을 기록하고<br>- 편의 도구로 효율적으로 관리하세요.<br>- 도구: 도안 펜, 카운터, 스톱워치 등",
+                "coming-soon": "공개 베타 >",
                 "lang-en": "English",
                 "lang-ko": "Korean - 한국어",
                 "login-btn": "로그인",
                 "logout-btn": "로그아웃",
-                footer: "&copy; 2025 TK4BL. All rights reserved. | <a href=\"privacy-policy.html\">개인정보처리방침</a>"
+                footer: "&copy; 2026 TK4BL. All rights reserved. | <a href=\"terms_of_service.html\">이용약관</a> | <a href=\"privacy-policy.html\">개인정보처리방침</a>"
             }
         };
 
