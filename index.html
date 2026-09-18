@@ -237,10 +237,10 @@
         /* 제품 그리드 섹션 */
         .products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 320px));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             justify-content: center;
             gap: 30px;
-            max-width: 1000px;
+            max-width: 1100px;
             width: 90%;
             padding: 40px 0;
         }
@@ -409,9 +409,17 @@
         <div class="card" onclick="window.open('https://play.google.com/store/apps/details?id=com.tkforbl.knitting', '_blank')" style="cursor: pointer;">
             <div>
                 <h3 data-key="knitting-title">Knit Kit</h3>
-                <p data-key="knitting-desc">Manage knitting patterns and records.<br>Record your hobbies more enjoyably.</p>
+                <p data-key="knitting-desc"><br>Knitting Tools<br><br>- Track yarn inventory and project status<br>- Manage efficiently with tools<br>- Tools: Pattern pen, Counter, Stopwatch, etc.<br>- ravelry integration: view my patterns, add straight to projects</p>
             </div>
             <a class="arrow" data-key="coming-soon" href="https://play.google.com/store/apps/details?id=com.tkforbl.knitting" target="_blank" style="text-decoration: none; display: block;">Google Play Store ></a>
+        </div>
+
+        <div class="card" onclick="window.open('https://play.google.com/store/apps/details?id=com.tkforbl.planner', '_blank')" style="cursor: pointer;">
+            <div>
+                <h3 data-key="planner-title">CircleDay</h3>
+                <p data-key="planner-desc"><br>24H circular schedule<br><br>- Circle: see your day at a glance on a circle<br>- Routine: apply repeating routines to the schedule<br>- Week/Month: view applied schedules by week or month<br>- Timetable: repeating weekly timetable<br>- Home widgets: today, month calendar, timetable<br>- Planned: year/final</p>
+            </div>
+            <a class="arrow" data-key="coming-soon" href="https://play.google.com/store/apps/details?id=com.tkforbl.planner" target="_blank" style="text-decoration: none; display: block;">Google Play Store ></a>
         </div>
     </section>
 
@@ -550,7 +558,9 @@
                 "avc-title": "AVCT<br><small>(App Volume Control TK4BL)</small>",
                 "avc-desc": "Per-app volume control for Android<br><br><center>『 Auto 』</center>- Remembers per-app volumes<br>- Applies volumes when app is activated<br><br><small>* Limitation: It is not possible to set different volumes for apps playing simultaneously due to Android's design limitations.</small>",
                 "knitting-title": "Knit Kit",
-                "knitting-desc": "<br>Knitting Tools<br><br>- Track yarn inventory and project status<br>- Manage efficiently with tools<br>- Tools: Pattern pen, Counter, Stopwatch, etc.",
+                "knitting-desc": "<br>Knitting Tools<br><br>- Track yarn inventory and project status<br>- Manage efficiently with tools<br>- Tools: Pattern pen, Counter, Stopwatch, etc.<br>- ravelry integration: view my patterns, add straight to projects",
+                "planner-title": "CircleDay",
+                "planner-desc": "<br>24H circular schedule<br><br>- Circle: see your day at a glance on a circle<br>- Routine: apply repeating routines to the schedule<br>- Week/Month: view applied schedules by week or month<br>- Timetable: repeating weekly timetable<br>- Home widgets: today, month calendar, timetable<br>- Planned: year/final",
                 "coming-soon": "Google Play Store >",
                 "lang-en": "English",
                 "lang-ko": "Korean - 한국어",
@@ -567,7 +577,9 @@
                 "avc-title": "AVCT<br><small>(App Volume Control TK4BL)</small>",
                 "avc-desc": "안드로이드 앱별 볼륨 조절<br><br><center>『 자동 』</center>- 앱별 볼륨 기억<br>- 앱 활성 시 볼륨 적용<br><br><small>* 제한 사항: 동시에 재생하는 앱별 볼륨을 다르게 설정하는 것은 안드로이드 설계 구조상 불가능.</small>",
                 "knitting-title": "Knit Kit",
-                "knitting-desc": "<br>뜨개질 도구<br><br>- 실 재고와 프로젝트 현황을 기록하고<br>- 편의 도구로 효율적으로 관리하세요.<br>- 도구: 도안 펜, 카운터, 스톱워치 등",
+                "knitting-desc": "<br>뜨개질 도구<br><br>- 실 재고와 프로젝트 현황을 기록하고<br>- 편의 도구로 효율적으로 관리하세요.<br>- 도구: 도안 펜, 카운터, 스톱워치 등<br>- ravelry 연동: 내 도안 보기, 프로젝트에 바로 추가",
+                "planner-title": "CircleDay",
+                "planner-desc": "<br>24H 원형 일정표<br><br>- 원형: 하루 일정을 원형으로 한눈에 보기<br>- 루틴: 매일 또는 요일마다 반복할 루틴을 일정표에 적용<br>- 주간/월간: 적용한 일정을 주간/월간으로 보기<br>- 시간표: 요일마다 반복할 시간표<br>- 홈 위젯: 오늘 일정, 월간 달력, 시간표<br>- 미구현(예정): 연간/최종",
                 "coming-soon": "Google Play Store >",
                 "lang-en": "English",
                 "lang-ko": "Korean - 한국어",
